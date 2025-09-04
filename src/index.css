@@ -283,7 +283,6 @@ All colors MUST be HSL.
       transform: scale(1.05);
     }
   }
-  }
 
   /* Ensure proper z-index stacking */
   .fixed {
