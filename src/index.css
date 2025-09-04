@@ -239,4 +239,48 @@ All colors MUST be HSL.
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100vw); }
   }
+
+  /* Page transition enhancements */
+  .page-enter {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+
+  .page-enter-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .page-exit {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .page-exit-active {
+    opacity: 0;
+    transform: translateY(-20px) scale(1.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  /* Smooth scrolling for the entire page */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced loading animation */
+  .loading-pulse {
+    animation: loading-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes loading-pulse {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
 }

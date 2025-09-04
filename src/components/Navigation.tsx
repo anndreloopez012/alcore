@@ -40,7 +40,7 @@ const Navigation = () => {
       if (location.pathname !== '/') {
         // Navegar a home primero usando React Router, luego hacer scroll
         navigate('/');
-        setTimeout(() => scrollToSection(item.section), 100);
+        setTimeout(() => scrollToSection(item.section), 400); // Increased delay for transition
       } else {
         scrollToSection(item.section);
       }
