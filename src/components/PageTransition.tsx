@@ -120,8 +120,8 @@ const PageTransition = ({ children }: PageTransitionProps) => {
             {/* Logo with pulse effect */}
             <div className="mb-6 animate-pulse">
               <img 
-                src="/lovable-uploads/04ac750a-ff32-4fc0-b575-89a9aa6bda51.png" 
-                alt="ALCORE Logo" 
+                src="/lovable-uploads/77d0db25-69ef-49e6-b294-6ef7fa9d418f.png" 
+                alt="ALCORE Technologies Solutions" 
                 className="h-12 mx-auto glow-primary loading-pulse"
               />
             </div>

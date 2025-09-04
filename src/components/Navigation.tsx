@@ -61,14 +61,13 @@ const Navigation = () => {
         }`}>
           <div className="px-6">
             <div className="flex items-center justify-between">
-            {/* Logo */}
+            {/* Logo with Isotipo */}
             <Link to="/" className="flex items-center gap-3 group">
               <img 
-                src="/lovable-uploads/04ac750a-ff32-4fc0-b575-89a9aa6bda51.png" 
-                alt="ALCORE Logo" 
+                src="/lovable-uploads/77d0db25-69ef-49e6-b294-6ef7fa9d418f.png" 
+                alt="ALCORE Technologies Solutions" 
                 className="h-8 group-hover:glow-primary transition-all duration-300"
               />
-              <span className="text-xl font-bold gradient-text">ALCORE</span>
             </Link>
 
             {/* Desktop Navigation */}
