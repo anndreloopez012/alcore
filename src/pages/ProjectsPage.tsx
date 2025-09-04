@@ -144,25 +144,6 @@ const ProjectsPage = () => {
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-16">
-            <div className="glass-card p-6 text-center">
-              <div className="text-3xl font-bold text-accent mb-2">{projects.length}+</div>
-              <div className="text-sm text-muted-foreground">Proyectos Completados</div>
-            </div>
-            <div className="glass-card p-6 text-center">
-              <div className="text-3xl font-bold text-primary-light mb-2">100%</div>
-              <div className="text-sm text-muted-foreground">Clientes Satisfechos</div>
-            </div>
-            <div className="glass-card p-6 text-center">
-              <div className="text-3xl font-bold text-accent mb-2">24/7</div>
-              <div className="text-sm text-muted-foreground">Soporte Técnico</div>
-            </div>
-            <div className="glass-card p-6 text-center">
-              <div className="text-3xl font-bold text-primary-light mb-2">5+</div>
-              <div className="text-sm text-muted-foreground">Años de Experiencia</div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -171,13 +152,13 @@ const ProjectsPage = () => {
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
             {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <div className="relative flex-1 max-w-2xl">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
                 placeholder="Buscar proyectos, tecnologías, clientes..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-muted/20 border-border focus:border-accent transition-colors"
+                className="pl-12 h-12 text-base bg-muted/20 border-border focus:border-accent transition-colors"
               />
             </div>
 
