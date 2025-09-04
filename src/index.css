@@ -283,4 +283,20 @@ All colors MUST be HSL.
       transform: scale(1.05);
     }
   }
+  }
+
+  /* Ensure proper z-index stacking */
+  .fixed {
+    position: fixed !important;
+  }
+
+  /* Navigation z-index fix */
+  nav {
+    z-index: 9999 !important;
+  }
+
+  /* Chat widget z-index fix */
+  .chat-widget {
+    z-index: 9998 !important;
+  }
 }

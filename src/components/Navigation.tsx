@@ -139,9 +139,9 @@ const Navigation = () => {
               ))}
               
               <Button variant="hero" size="sm" className="ml-4 px-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                <button onClick={handleContactClick}>
+                <Link to="/contacto">
                   Comenzar Proyecto
-                </button>
+                </Link>
               </Button>
             </div>
 
@@ -211,14 +211,11 @@ const Navigation = () => {
                 ))}
                 
                 <div className="pt-4 border-t border-border">
-                  <Button variant="hero" className="w-full shadow-lg hover:shadow-xl transition-all duration-300">
-                    <button onClick={(e) => {
-                      handleContactClick(e);
-                      setIsMenuOpen(false);
-                    }}>
+                  <Link to="/contacto" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="hero" className="w-full shadow-lg hover:shadow-xl transition-all duration-300">
                       Comenzar Proyecto
-                    </button>
-                  </Button>
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
