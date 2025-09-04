@@ -1,4 +1,20 @@
 import { useEffect, useState } from "react";
+import { Code2, Terminal, Database, Brackets, GitBranch } from "lucide-react";
+
+// Import technology logos
+import reactLogo from "@/assets/logos/react-logo.png";
+import typescriptLogo from "@/assets/logos/typescript-logo.png";
+import javascriptLogo from "@/assets/logos/javascript-logo.png";
+import phpLogo from "@/assets/logos/php-logo.png";
+import nodejsLogo from "@/assets/logos/nodejs-logo.png";
+import reactNativeLogo from "@/assets/logos/react-native-logo.png";
+import flutterLogo from "@/assets/logos/flutter-logo.png";
+import cssLogo from "@/assets/logos/css-logo.png";
+import astroLogo from "@/assets/logos/astro-logo.png";
+import awsLogo from "@/assets/logos/aws-logo.png";
+import azureLogo from "@/assets/logos/azure-logo.png";
+import huaweiLogo from "@/assets/logos/huawei-logo.png";
+import codeBackground from "@/assets/code-background.jpg";
 
 const Technologies = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -10,27 +26,72 @@ const Technologies = () => {
   }, []);
 
   const technologies = [
-    { name: "React", color: "text-blue-400", icon: "⚛️" },
-    { name: "TypeScript", color: "text-blue-500", icon: "📘" },
-    { name: "JavaScript", color: "text-yellow-400", icon: "🟨" },
-    { name: "PHP", color: "text-purple-400", icon: "🐘" },
-    { name: "Node.js", color: "text-green-400", icon: "🟢" },
-    { name: "React Native", color: "text-cyan-400", icon: "📱" },
-    { name: "Flutter", color: "text-blue-300", icon: "🦋" },
-    { name: "CSS", color: "text-blue-600", icon: "🎨" },
-    { name: "AJAX", color: "text-orange-400", icon: "🔄" },
-    { name: "Astro", color: "text-purple-500", icon: "🚀" }
+    { name: "React", logo: reactLogo, category: "Frontend" },
+    { name: "TypeScript", logo: typescriptLogo, category: "Language" },
+    { name: "JavaScript", logo: javascriptLogo, category: "Language" },
+    { name: "PHP", logo: phpLogo, category: "Backend" },
+    { name: "Node.js", logo: nodejsLogo, category: "Backend" },
+    { name: "React Native", logo: reactNativeLogo, category: "Mobile" },
+    { name: "Flutter", logo: flutterLogo, category: "Mobile" },
+    { name: "CSS", logo: cssLogo, category: "Frontend" },
+    { name: "Astro", logo: astroLogo, category: "Framework" },
+    { name: "AJAX", icon: "🔄", category: "Web API" }
   ];
 
   const cloudProviders = [
-    { name: "AWS", logo: "☁️", color: "text-orange-400" },
-    { name: "Azure", logo: "🌐", color: "text-blue-400" },
-    { name: "Huawei Cloud", logo: "🏗️", color: "text-red-400" },
-    { name: "Servidores Físicos", logo: "🖥️", color: "text-gray-300" }
+    { name: "AWS", logo: awsLogo },
+    { name: "Azure", logo: azureLogo },
+    { name: "Huawei Cloud", logo: huaweiLogo },
+    { name: "Servidores Físicos", icon: "🖥️" }
   ];
 
   return (
     <section className="py-24 relative overflow-hidden">
+      {/* Code background overlay */}
+      <div 
+        className="absolute inset-0 opacity-5"
+        style={{
+          backgroundImage: `url(${codeBackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+
+      {/* Floating code elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <Code2 
+          className="absolute top-16 left-16 w-6 h-6 text-accent/20 animate-float" 
+          style={{ animationDelay: '0s' }}
+        />
+        <Terminal 
+          className="absolute top-32 right-32 w-8 h-8 text-primary-light/30 animate-float" 
+          style={{ animationDelay: '2s' }}
+        />
+        <Database 
+          className="absolute bottom-32 left-32 w-7 h-7 text-accent/25 animate-float" 
+          style={{ animationDelay: '4s' }}
+        />
+        <Brackets 
+          className="absolute bottom-48 right-48 w-6 h-6 text-primary/20 animate-float" 
+          style={{ animationDelay: '1s' }}
+        />
+        <GitBranch 
+          className="absolute top-48 left-1/2 w-5 h-5 text-accent/30 animate-float" 
+          style={{ animationDelay: '3s' }}
+        />
+        
+        {/* Floating code snippets */}
+        <div className="absolute top-20 right-20 text-accent/10 font-mono text-xs animate-float" style={{ animationDelay: '1.5s' }}>
+          {'{ "framework": "react" }'}
+        </div>
+        <div className="absolute bottom-20 left-20 text-primary-light/10 font-mono text-xs animate-float" style={{ animationDelay: '3.5s' }}>
+          {'const app = () => { }'}
+        </div>
+        <div className="absolute top-1/2 right-1/4 text-accent/15 font-mono text-xs animate-float" style={{ animationDelay: '2.5s' }}>
+          {'npm install'}
+        </div>
+      </div>
       {/* Parallax background elements */}
       <div className="absolute inset-0 opacity-10">
         <div 
@@ -62,12 +123,21 @@ const Technologies = () => {
               className="tech-card p-6 text-center group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                {tech.icon}
+              <div className="mb-4 group-hover:scale-110 transition-transform duration-300 flex justify-center items-center h-16">
+                {tech.logo ? (
+                  <img 
+                    src={tech.logo} 
+                    alt={`${tech.name} logo`} 
+                    className="h-12 w-12 object-contain filter group-hover:brightness-110"
+                  />
+                ) : (
+                  <div className="text-4xl">{tech.icon}</div>
+                )}
               </div>
-              <h3 className={`font-semibold ${tech.color} group-hover:text-accent transition-colors`}>
+              <h3 className="font-semibold text-foreground group-hover:text-accent transition-colors">
                 {tech.name}
               </h3>
+              <p className="text-xs text-muted-foreground mt-1">{tech.category}</p>
             </div>
           ))}
         </div>
@@ -88,10 +158,18 @@ const Technologies = () => {
                 key={index}
                 className="glass-card p-8 text-center group hover:scale-105 transition-all duration-300"
               >
-                <div className="text-6xl mb-4 group-hover:animate-bounce">
-                  {provider.logo}
+                <div className="mb-4 group-hover:animate-bounce flex justify-center items-center h-16">
+                  {provider.logo ? (
+                    <img 
+                      src={provider.logo} 
+                      alt={`${provider.name} logo`} 
+                      className="h-12 w-auto object-contain filter group-hover:brightness-110"
+                    />
+                  ) : (
+                    <div className="text-6xl">{provider.icon}</div>
+                  )}
                 </div>
-                <h4 className={`text-lg font-bold ${provider.color} group-hover:text-accent transition-colors`}>
+                <h4 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors">
                   {provider.name}
                 </h4>
               </div>
@@ -100,7 +178,30 @@ const Technologies = () => {
         </div>
 
         {/* Tech Stack Features */}
-        <div className="glass-card p-8 md:p-12">
+        <div className="glass-card p-8 md:p-12 relative overflow-hidden">
+          {/* Code pattern overlay */}
+          <div className="absolute top-0 right-0 text-accent/5 font-mono text-xs leading-4 pointer-events-none">
+            <pre className="whitespace-pre-wrap">
+{`import React from 'react';
+import { useState, useEffect } from 'react';
+
+const TechStack = () => {
+  const [technologies, setTechnologies] = useState([]);
+  
+  useEffect(() => {
+    loadTechnologies();
+  }, []);
+  
+  return (
+    <div className="tech-stack">
+      {technologies.map(tech => (
+        <TechCard key={tech.id} {...tech} />
+      ))}
+    </div>
+  );
+};`}
+            </pre>
+          </div>
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold mb-4">Stack Tecnológico Completo</h3>
             <p className="text-muted-foreground">Cobertura integral desde frontend hasta infraestructura</p>

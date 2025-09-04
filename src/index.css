@@ -195,3 +195,48 @@ All colors MUST be HSL.
     transform: translateY(-10px);
   }
 }
+
+@layer utilities {
+  /* Developer-themed animations */
+  .typing {
+    overflow: hidden;
+    border-right: 2px solid hsl(var(--accent));
+    white-space: nowrap;
+    animation: typing 3s steps(20, end), blink-caret 0.5s step-end infinite;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: hsl(var(--accent)); }
+  }
+
+  /* Code syntax highlighting effect */
+  .code-highlight {
+    background: linear-gradient(90deg, 
+      hsl(var(--accent) / 0.1) 0%, 
+      hsl(var(--primary) / 0.1) 50%, 
+      hsl(var(--accent) / 0.1) 100%);
+    animation: code-scan 3s ease-in-out infinite;
+  }
+
+  @keyframes code-scan {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Matrix-like effect for background */
+  .matrix-bg {
+    background: linear-gradient(90deg, transparent 0%, hsl(var(--accent) / 0.03) 50%, transparent 100%);
+    animation: matrix 20s linear infinite;
+  }
+
+  @keyframes matrix {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100vw); }
+  }
+}

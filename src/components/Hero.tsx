@@ -58,6 +58,21 @@ const Hero = () => {
           className="absolute bottom-48 left-48 w-7 h-7 text-accent/30 animate-float" 
           style={{ animationDelay: '5s' }}
         />
+        
+        {/* Matrix-like background lines */}
+        <div className="absolute inset-0">
+          <div className="matrix-bg w-4 h-full opacity-20" style={{ animationDelay: '0s' }} />
+          <div className="matrix-bg w-2 h-full opacity-15" style={{ animationDelay: '5s' }} />
+          <div className="matrix-bg w-6 h-full opacity-10" style={{ animationDelay: '10s' }} />
+        </div>
+        
+        {/* Floating code elements */}
+        <div className="absolute top-16 right-16 text-accent/10 font-mono text-xs animate-float code-highlight p-2 rounded" style={{ animationDelay: '2s' }}>
+          {'<ALCORE />'}
+        </div>
+        <div className="absolute bottom-16 left-16 text-primary-light/10 font-mono text-xs animate-float code-highlight p-2 rounded" style={{ animationDelay: '4s' }}>
+          {'npm run dev'}
+        </div>
       </div>
 
       <div className="container mx-auto px-6 text-center relative z-10">
@@ -80,11 +95,16 @@ const Hero = () => {
             <span className="text-accent text-4xl md:text-6xl font-light">Solutions</span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          {/* Subtitle with typing effect for dev keywords */}
+          <p className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
             Desarrollamos soluciones tecnológicas a la medida, productos de software innovadores 
             y servicios de nube escalables para impulsar tu negocio hacia el futuro
           </p>
+          
+          {/* Developer keywords with typing effect */}
+          <div className="text-accent font-mono text-sm mb-8 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <span className="typing">{'> Building the future with code'}</span>
+          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
