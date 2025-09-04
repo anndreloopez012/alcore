@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen } from "lucide-react";
+import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen, Settings, Package } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
@@ -23,6 +23,8 @@ const Navigation = () => {
     { name: "Tecnologías", href: "/#tecnologias", icon: Cloud, section: "tecnologias" },
     { name: "Proyectos", href: "/proyectos", icon: FolderOpen, section: "proyectos" },
     { name: "Servidores Cloud", href: "/servidores-cloud", icon: Cloud, section: "servidores-cloud" },
+    { name: "Desarrollo a Medida", href: "/desarrollo-medida", icon: Settings, section: "desarrollo-medida" },
+    { name: "Productos", href: "/productos", icon: Package, section: "productos" },
     { name: "Contacto", href: "/contacto", icon: Mail, section: "contacto" },
   ];
 

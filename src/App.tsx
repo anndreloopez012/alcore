@@ -12,6 +12,8 @@ import ServerCXPage from "./pages/ServerCXPage";
 import ServerCPXPage from "./pages/ServerCPXPage";
 import ServerCAXPage from "./pages/ServerCAXPage";
 import ServerCCXPage from "./pages/ServerCCXPage";
+import CustomDevelopmentPage from "./pages/CustomDevelopmentPage";
+import ProductsPage from "./pages/ProductsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +33,8 @@ const App = () => (
           <Route path="/servidores-cloud/cpx" element={<ServerCPXPage />} />
           <Route path="/servidores-cloud/cax" element={<ServerCAXPage />} />
           <Route path="/servidores-cloud/ccx" element={<ServerCCXPage />} />
+          <Route path="/desarrollo-medida" element={<CustomDevelopmentPage />} />
+          <Route path="/productos" element={<ProductsPage />} />
             <Route path="/contacto" element={<ContactPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
