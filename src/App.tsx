@@ -8,6 +8,10 @@ import Index from "./pages/Index";
 import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
 import CloudServersPage from "./pages/CloudServersPage";
+import ServerCXPage from "./pages/ServerCXPage";
+import ServerCPXPage from "./pages/ServerCPXPage";
+import ServerCAXPage from "./pages/ServerCAXPage";
+import ServerCCXPage from "./pages/ServerCCXPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,7 +26,11 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/proyectos" element={<ProjectsPage />} />
-            <Route path="/servidores-cloud" element={<CloudServersPage />} />
+          <Route path="/servidores-cloud" element={<CloudServersPage />} />
+          <Route path="/servidores-cloud/cx" element={<ServerCXPage />} />
+          <Route path="/servidores-cloud/cpx" element={<ServerCPXPage />} />
+          <Route path="/servidores-cloud/cax" element={<ServerCAXPage />} />
+          <Route path="/servidores-cloud/ccx" element={<ServerCCXPage />} />
             <Route path="/contacto" element={<ContactPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
