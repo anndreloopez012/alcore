@@ -80,7 +80,7 @@ const Hero = () => {
           {/* Logo */}
           <div className="mb-8 animate-fade-in">
             <img 
-              src="/lovable-uploads/77d0db25-69ef-49e6-b294-6ef7fa9d418f.png" 
+              src="/lovable-uploads/7939aa51-6ace-4a2e-b865-7f1ca2d69f21.png" 
               alt="ALCORE Technologies Solutions" 
               className="h-20 mx-auto mb-6 glow-primary"
             />
