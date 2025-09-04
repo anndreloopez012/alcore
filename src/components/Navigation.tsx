@@ -22,6 +22,7 @@ const Navigation = () => {
     { name: "Servicios", href: "/#servicios", icon: Code, section: "servicios" },
     { name: "Tecnologías", href: "/#tecnologias", icon: Cloud, section: "tecnologias" },
     { name: "Proyectos", href: "/proyectos", icon: FolderOpen, section: "proyectos" },
+    { name: "Servidores Cloud", href: "/servidores-cloud", icon: Cloud, section: "servidores-cloud" },
     { name: "Contacto", href: "/contacto", icon: Mail, section: "contacto" },
   ];
 
