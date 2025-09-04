@@ -7,15 +7,6 @@ const Contact = () => {
   return (
     <section className="py-24 relative">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Hablemos de tu <span className="gradient-text">Proyecto</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Estamos listos para transformar tus ideas en soluciones tecnológicas exitosas. 
-            Contáctanos y comenzemos a construir el futuro juntos.
-          </p>
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
