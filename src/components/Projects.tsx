@@ -103,7 +103,7 @@ const Projects = () => {
           {projects.map((project, index) => (
             <div 
               key={index}
-              className="project-card p-6 h-full flex flex-col"
+              className="project-card group p-6 h-full flex flex-col"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Project image/icon */}

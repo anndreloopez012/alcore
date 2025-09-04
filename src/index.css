@@ -187,7 +187,7 @@ All colors MUST be HSL.
   }
 
   .project-card {
-    @apply glass-card transition-all duration-500 group;
+    @apply glass-card transition-all duration-500;
   }
 
   .project-card:hover {
