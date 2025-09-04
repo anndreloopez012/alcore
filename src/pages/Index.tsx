@@ -7,16 +7,18 @@ import FloatingChat from "@/components/FloatingChat";
 
 const Index = () => {
   return (
-    <main className="min-h-screen">
+    <>
       <Navigation />
-      <div className="pt-24">
-        <section id="hero"><Hero /></section>
-        <section id="servicios"><Services /></section>
-        <section id="tecnologias"><Technologies /></section>
-      </div>
-      <Footer />
+      <main className="min-h-screen">
+        <div className="pt-24">
+          <section id="hero"><Hero /></section>
+          <section id="servicios"><Services /></section>
+          <section id="tecnologias"><Technologies /></section>
+        </div>
+        <Footer />
+      </main>
       <FloatingChat />
-    </main>
+    </>
   );
 };
 

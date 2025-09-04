@@ -284,18 +284,25 @@ All colors MUST be HSL.
     }
   }
 
-  /* Ensure proper z-index stacking */
+  /* Ensure proper z-index stacking and positioning */
   .fixed {
     position: fixed !important;
   }
 
   /* Navigation z-index fix */
   nav {
+    position: fixed !important;
     z-index: 9999 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
   }
 
   /* Chat widget z-index fix */
   .chat-widget {
+    position: fixed !important;
     z-index: 9998 !important;
+    bottom: 24px !important;
+    right: 24px !important;
   }
 }

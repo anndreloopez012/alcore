@@ -61,7 +61,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[9999] bg-transparent">
+    <nav className="fixed top-0 left-0 right-0 z-[9999] bg-transparent" style={{ zIndex: 9999 }}>
       <div className="container mx-auto px-4 pt-4">
         <div className={`glass-card backdrop-blur-xl transition-all duration-500 rounded-2xl border border-border/20 max-w-6xl mx-auto ${
           scrolled ? 'shadow-2xl glow-primary py-3' : 'shadow-lg py-4'
