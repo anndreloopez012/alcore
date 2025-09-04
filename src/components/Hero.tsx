@@ -95,7 +95,7 @@ const Hero = () => {
               </Link>
             </Button>
             <Button variant="glass" size="lg" onClick={() => scrollToSection('servicios')}>
-              Servicios personalizados
+              Nuestros servicios
             </Button>
           </div>
 

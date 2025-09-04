@@ -2,7 +2,6 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Technologies from "@/components/Technologies";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -13,7 +12,6 @@ const Index = () => {
         <section id="hero"><Hero /></section>
         <section id="servicios"><Services /></section>
         <section id="tecnologias"><Technologies /></section>
-        <section id="contacto"><Contact /></section>
       </div>
       <Footer />
     </main>

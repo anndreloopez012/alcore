@@ -22,7 +22,7 @@ const Navigation = () => {
     { name: "Servicios", href: "/#servicios", icon: Code, section: "servicios" },
     { name: "Tecnologías", href: "/#tecnologias", icon: Cloud, section: "tecnologias" },
     { name: "Proyectos", href: "/proyectos", icon: FolderOpen, section: "proyectos" },
-    { name: "Contacto", href: "/#contacto", icon: Mail, section: "contacto" },
+    { name: "Contacto", href: "/contacto", icon: Mail, section: "contacto" },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -50,12 +50,7 @@ const Navigation = () => {
 
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(() => scrollToSection('contacto'), 100);
-    } else {
-      scrollToSection('contacto');
-    }
+    navigate('/contacto');
   };
 
   return (
