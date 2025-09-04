@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,11 +26,6 @@ const Navigation = () => {
   ];
 
   const scrollToSection = (sectionId: string) => {
-    if (location.pathname !== '/') {
-      window.location.href = `/#${sectionId}`;
-      return;
-    }
-    
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -37,11 +33,28 @@ const Navigation = () => {
     setIsMenuOpen(false);
   };
 
-  const handleNavClick = (item: typeof navigationItems[0]) => {
+  const handleNavClick = (item: typeof navigationItems[0], e: React.MouseEvent) => {
+    e.preventDefault();
+    
     if (item.href.startsWith('/#')) {
-      scrollToSection(item.section);
+      if (location.pathname !== '/') {
+        // Navegar a home primero usando React Router, luego hacer scroll
+        navigate('/');
+        setTimeout(() => scrollToSection(item.section), 100);
+      } else {
+        scrollToSection(item.section);
+      }
+    }
+    setIsMenuOpen(false);
+  };
+
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => scrollToSection('contacto'), 100);
     } else {
-      setIsMenuOpen(false);
+      scrollToSection('contacto');
     }
   };
 
@@ -67,7 +80,7 @@ const Navigation = () => {
               <div key={item.name}>
                 {item.href.startsWith('/#') ? (
                   <button
-                    onClick={() => handleNavClick(item)}
+                    onClick={(e) => handleNavClick(item, e)}
                     className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors duration-300 group"
                   >
                     <item.icon className="h-4 w-4 group-hover:text-accent" />
@@ -85,10 +98,10 @@ const Navigation = () => {
               </div>
             ))}
             
-            <Button variant="hero" size="sm" asChild>
-              <Link to="/#contacto">
+            <Button variant="hero" size="sm">
+              <button onClick={handleContactClick}>
                 Comenzar Proyecto
-              </Link>
+              </button>
             </Button>
           </div>
 
@@ -111,7 +124,7 @@ const Navigation = () => {
                 <div key={item.name}>
                   {item.href.startsWith('/#') ? (
                     <button
-                      onClick={() => handleNavClick(item)}
+                      onClick={(e) => handleNavClick(item, e)}
                       className="flex items-center gap-3 w-full text-left p-2 rounded-md text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300"
                     >
                       <item.icon className="h-5 w-5" />
@@ -131,10 +144,13 @@ const Navigation = () => {
               ))}
               
               <div className="pt-4 border-t border-border">
-                <Button variant="hero" className="w-full" asChild>
-                  <Link to="/#contacto" onClick={() => setIsMenuOpen(false)}>
+                <Button variant="hero" className="w-full">
+                  <button onClick={(e) => {
+                    handleContactClick(e);
+                    setIsMenuOpen(false);
+                  }}>
                     Comenzar Proyecto
-                  </Link>
+                  </button>
                 </Button>
               </div>
             </div>

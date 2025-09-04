@@ -1,15 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Code, Cloud, Cpu } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -80,15 +89,13 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
             <Button variant="hero" size="lg" className="group" asChild>
-              <a href="/proyectos">
+              <Link to="/proyectos">
                 Conoce nuestros proyectos
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
             </Button>
-            <Button variant="glass" size="lg" asChild>
-              <a href="#servicios">
-                Servicios personalizados
-              </a>
+            <Button variant="glass" size="lg" onClick={() => scrollToSection('servicios')}>
+              Servicios personalizados
             </Button>
           </div>
 
