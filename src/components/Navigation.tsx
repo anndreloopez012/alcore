@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen, Settings, Package } from "lucide-react";
+import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen, Settings, Package, ChevronDown, MessageCircle } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -19,13 +20,16 @@ const Navigation = () => {
 
   const navigationItems = [
     { name: "Inicio", href: "/", icon: Home, section: "hero" },
-    { name: "Servicios", href: "/#servicios", icon: Code, section: "servicios" },
+    { name: "Servicios", href: "/#servicios", icon: Code, section: "servicios", hasDropdown: true },
     { name: "Tecnologías", href: "/#tecnologias", icon: Cloud, section: "tecnologias" },
     { name: "Proyectos", href: "/proyectos", icon: FolderOpen, section: "proyectos" },
-    { name: "Servidores Cloud", href: "/servidores-cloud", icon: Cloud, section: "servidores-cloud" },
-    { name: "Desarrollo a Medida", href: "/desarrollo-medida", icon: Settings, section: "desarrollo-medida" },
-    { name: "Productos", href: "/productos", icon: Package, section: "productos" },
     { name: "Contacto", href: "/contacto", icon: Mail, section: "contacto" },
+  ];
+
+  const servicesSubmenu = [
+    { name: "Desarrollo a Medida", href: "/desarrollo-medida", icon: Settings },
+    { name: "Productos de Software", href: "/productos", icon: Package },
+    { name: "Servidores en la Nube", href: "/servidores-cloud", icon: Cloud },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -76,8 +80,43 @@ const Navigation = () => {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-2">
               {navigationItems.map((item) => (
-                <div key={item.name}>
-                  {item.href.startsWith('/#') ? (
+                <div key={item.name} className="relative">
+                  {item.hasDropdown ? (
+                    <div 
+                      className="relative"
+                      onMouseEnter={() => setServicesDropdownOpen(true)}
+                      onMouseLeave={() => setServicesDropdownOpen(false)}
+                    >
+                      <button
+                        onClick={(e) => handleNavClick(item, e)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
+                      >
+                        <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
+                        <span className="text-sm font-medium">{item.name}</span>
+                        <ChevronDown className="h-3 w-3 transition-transform duration-300" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </button>
+                      
+                      {/* Services Dropdown */}
+                      {servicesDropdownOpen && (
+                        <div className="absolute top-full left-0 mt-2 w-56 bg-background/95 backdrop-blur-xl border border-border/20 rounded-xl shadow-2xl z-[10000] overflow-hidden">
+                          <div className="py-2">
+                            {servicesSubmenu.map((subItem) => (
+                              <Link
+                                key={subItem.name}
+                                to={subItem.href}
+                                className="flex items-center gap-3 px-4 py-3 text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
+                                onClick={() => setServicesDropdownOpen(false)}
+                              >
+                                <subItem.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
+                                <span className="text-sm font-medium">{subItem.name}</span>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ) : item.href.startsWith('/#') ? (
                     <button
                       onClick={(e) => handleNavClick(item, e)}
                       className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
@@ -126,7 +165,31 @@ const Navigation = () => {
               <div className="px-6 py-4 space-y-2">
                 {navigationItems.map((item) => (
                   <div key={item.name}>
-                    {item.href.startsWith('/#') ? (
+                    {item.hasDropdown ? (
+                      <div>
+                        <button
+                          onClick={(e) => handleNavClick(item, e)}
+                          className="flex items-center gap-3 w-full text-left p-3 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
+                        >
+                          <item.icon className="h-5 w-5 group-hover:text-accent transition-colors" />
+                          <span className="font-medium">{item.name}</span>
+                          <ChevronDown className="h-4 w-4 ml-auto" />
+                        </button>
+                        <div className="ml-6 mt-2 space-y-1">
+                          {servicesSubmenu.map((subItem) => (
+                            <Link
+                              key={subItem.name}
+                              to={subItem.href}
+                              onClick={() => setIsMenuOpen(false)}
+                              className="flex items-center gap-3 w-full text-left p-2 rounded-lg text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group text-sm"
+                            >
+                              <subItem.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
+                              <span>{subItem.name}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ) : item.href.startsWith('/#') ? (
                       <button
                         onClick={(e) => handleNavClick(item, e)}
                         className="flex items-center gap-3 w-full text-left p-3 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
