@@ -5,7 +5,7 @@ import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
 
 const Contact = () => {
   return (
-    <section className="py-24 relative">
+    <section className="py-8 relative">
       <div className="container mx-auto px-6">
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
