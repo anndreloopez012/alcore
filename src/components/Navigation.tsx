@@ -54,99 +54,105 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'glass-card backdrop-blur-xl shadow-lg' : 'bg-transparent'
-    }`}>
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <img 
-              src="/lovable-uploads/04ac750a-ff32-4fc0-b575-89a9aa6bda51.png" 
-              alt="ALCORE Logo" 
-              className="h-8 group-hover:glow-primary transition-all duration-300"
-            />
-            <span className="text-xl font-bold gradient-text">ALCORE</span>
-          </Link>
+    <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-6xl px-4">
+      <div className={`glass-card backdrop-blur-xl transition-all duration-500 rounded-2xl border border-border/20 ${
+        scrolled ? 'shadow-2xl glow-primary' : 'shadow-lg'
+      }`}>
+        <div className="px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-3 group">
+              <img 
+                src="/lovable-uploads/04ac750a-ff32-4fc0-b575-89a9aa6bda51.png" 
+                alt="ALCORE Logo" 
+                className="h-8 group-hover:glow-primary transition-all duration-300"
+              />
+              <span className="text-xl font-bold gradient-text">ALCORE</span>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => (
-              <div key={item.name}>
-                {item.href.startsWith('/#') ? (
-                  <button
-                    onClick={(e) => handleNavClick(item, e)}
-                    className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors duration-300 group"
-                  >
-                    <item.icon className="h-4 w-4 group-hover:text-accent" />
-                    <span>{item.name}</span>
-                  </button>
-                ) : (
-                  <Link
-                    to={item.href}
-                    className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors duration-300 group"
-                  >
-                    <item.icon className="h-4 w-4 group-hover:text-accent" />
-                    <span>{item.name}</span>
-                  </Link>
-                )}
-              </div>
-            ))}
-            
-            <Button variant="hero" size="sm">
-              <button onClick={handleContactClick}>
-                Comenzar Proyecto
-              </button>
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-16 left-0 right-0 glass-card backdrop-blur-xl border-t border-border">
-            <div className="px-6 py-4 space-y-4">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-2">
               {navigationItems.map((item) => (
                 <div key={item.name}>
                   {item.href.startsWith('/#') ? (
                     <button
                       onClick={(e) => handleNavClick(item, e)}
-                      className="flex items-center gap-3 w-full text-left p-2 rounded-md text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
                     >
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.name}</span>
+                      <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
+                      <span className="text-sm font-medium">{item.name}</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </button>
                   ) : (
                     <Link
                       to={item.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 w-full text-left p-2 rounded-md text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
                     >
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.name}</span>
+                      <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
+                      <span className="text-sm font-medium">{item.name}</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </Link>
                   )}
                 </div>
               ))}
               
-              <div className="pt-4 border-t border-border">
-                <Button variant="hero" className="w-full">
-                  <button onClick={(e) => {
-                    handleContactClick(e);
-                    setIsMenuOpen(false);
-                  }}>
-                    Comenzar Proyecto
-                  </button>
-                </Button>
+              <Button variant="hero" size="sm" className="ml-4 px-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                <button onClick={handleContactClick}>
+                  Comenzar Proyecto
+                </button>
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden hover:bg-accent/10 transition-all duration-300"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+        </div>
+        
+        {/* Mobile Navigation Dropdown */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 mt-2 mx-4">
+            <div className="glass-card backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden">
+              <div className="px-6 py-4 space-y-2">
+                {navigationItems.map((item) => (
+                  <div key={item.name}>
+                    {item.href.startsWith('/#') ? (
+                      <button
+                        onClick={(e) => handleNavClick(item, e)}
+                        className="flex items-center gap-3 w-full text-left p-3 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
+                      >
+                        <item.icon className="h-5 w-5 group-hover:text-accent transition-colors" />
+                        <span className="font-medium">{item.name}</span>
+                      </button>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center gap-3 w-full text-left p-3 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
+                      >
+                        <item.icon className="h-5 w-5 group-hover:text-accent transition-colors" />
+                        <span className="font-medium">{item.name}</span>
+                      </Link>
+                    )}
+                  </div>
+                ))}
+                
+                <div className="pt-4 border-t border-border">
+                  <Button variant="hero" className="w-full shadow-lg hover:shadow-xl transition-all duration-300">
+                    <button onClick={(e) => {
+                      handleContactClick(e);
+                      setIsMenuOpen(false);
+                    }}>
+                      Comenzar Proyecto
+                    </button>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
