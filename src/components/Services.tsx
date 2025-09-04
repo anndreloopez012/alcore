@@ -1,5 +1,6 @@
 import { Code, Package, Cloud, Zap, Shield, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Services = () => {
   const services = [
@@ -8,21 +9,24 @@ const Services = () => {
       title: "Desarrollo a Medida",
       description: "Creamos aplicaciones web, móviles y de escritorio adaptadas exactamente a tus necesidades empresariales.",
       features: ["Análisis de requerimientos", "Diseño UX/UI personalizado", "Desarrollo escalable", "Soporte continuo"],
-      gradient: "from-primary to-primary-light"
+      gradient: "from-primary to-primary-light",
+      link: "/desarrollo-medida"
     },
     {
       icon: Package,
       title: "Productos de Software",
       description: "Soluciones de software listas para implementar que aceleran la transformación digital de tu empresa.",
       features: ["Sistemas de gestión", "Aplicaciones empresariales", "Herramientas de automatización", "Integración API"],
-      gradient: "from-accent to-primary"
+      gradient: "from-accent to-primary",
+      link: "/productos"
     },
     {
       icon: Cloud,
       title: "Servidores en la Nube",
       description: "Infraestructura escalable y segura en múltiples proveedores cloud para garantizar el mejor rendimiento.",
       features: ["AWS, Azure, Huawei", "Escalabilidad automática", "Backup y recuperación", "Monitoreo 24/7"],
-      gradient: "from-primary-light to-accent"
+      gradient: "from-primary-light to-accent",
+      link: "/servidores-cloud"
     }
   ];
 
@@ -70,9 +74,11 @@ const Services = () => {
                 ))}
               </ul>
 
-              <Button variant="glow" className="w-full group-hover:shadow-glow-secondary">
-                Más información
-              </Button>
+              <Link to={service.link}>
+                <Button variant="glow" className="w-full group-hover:shadow-glow-secondary">
+                  Más información
+                </Button>
+              </Link>
             </div>
           ))}
         </div>
