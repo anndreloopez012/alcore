@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { sanitizeInput, ValidationSchemas, rateLimiter, SecurityLogger } from "@/utils/security";
 
 interface Message {
   id: string;
@@ -53,10 +54,34 @@ const FloatingChat = () => {
   const sendMessage = async (message: string) => {
     if (!message.trim()) return;
 
+    // Security validation
+    const sanitizedMessage = sanitizeInput(message);
+    if (!ValidationSchemas.chatForm.message(sanitizedMessage)) {
+      toast({
+        title: "Error",
+        description: "Mensaje inválido. Verifique el contenido.",
+        variant: "destructive",
+      });
+      SecurityLogger.log('INVALID_INPUT', 'Chat message validation failed');
+      return;
+    }
+
+    // Rate limiting
+    const clientId = `chat_${Date.now()}`;
+    if (!rateLimiter.isAllowed(clientId)) {
+      toast({
+        title: "Límite alcanzado",
+        description: "Demasiados mensajes. Espere un momento.",
+        variant: "destructive",
+      });
+      SecurityLogger.log('RATE_LIMIT_EXCEEDED', 'Chat rate limit exceeded');
+      return;
+    }
+
     // Agregar mensaje del usuario
     const userMessage: Message = {
       id: Date.now().toString(),
-      text: message,
+      text: sanitizedMessage,
       sender: 'user',
       timestamp: new Date()
     };
@@ -74,11 +99,12 @@ const FloatingChat = () => {
         },
         mode: "no-cors",
         body: JSON.stringify({
-          message: message,
+          message: sanitizedMessage,
           timestamp: new Date().toISOString(),
           sessionId: `chat_${Date.now()}`,
           source: "chat_widget",
           page: window.location.href,
+          userAgent: navigator.userAgent.substring(0, 200), // Limit user agent length
         }),
       });
 

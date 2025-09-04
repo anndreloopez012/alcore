@@ -4,6 +4,7 @@ import Services from "@/components/Services";
 import Technologies from "@/components/Technologies";
 import Footer from "@/components/Footer";
 import FloatingChat from "@/components/FloatingChat";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
         <Footer />
       </main>
       <FloatingChat />
+      <PWAInstallPrompt />
     </>
   );
 };
