@@ -54,14 +54,13 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-6xl px-4 transition-all duration-500 ${
-      scrolled ? 'pt-2' : 'pt-4'
-    }`}>
-      <div className={`glass-card backdrop-blur-xl transition-all duration-500 rounded-2xl border border-border/20 ${
-        scrolled ? 'shadow-2xl glow-primary py-3' : 'shadow-lg py-4'
-      }`}>
-        <div className="px-6">
-          <div className="flex items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 z-[9999] bg-transparent">
+      <div className="container mx-auto px-4 pt-4">
+        <div className={`glass-card backdrop-blur-xl transition-all duration-500 rounded-2xl border border-border/20 max-w-6xl mx-auto ${
+          scrolled ? 'shadow-2xl glow-primary py-3' : 'shadow-lg py-4'
+        }`}>
+          <div className="px-6">
+            <div className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group">
               <img 
@@ -114,13 +113,14 @@ const Navigation = () => {
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
+            </div>
           </div>
         </div>
         
         {/* Mobile Navigation Dropdown */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 mt-2 mx-4">
-            <div className="glass-card backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden z-50 bg-background/80">
+          <div className="md:hidden absolute top-full left-4 right-4 mt-2 z-[9999]">
+            <div className="glass-card backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden bg-background/95">
               <div className="px-6 py-4 space-y-2">
                 {navigationItems.map((item) => (
                   <div key={item.name}>
