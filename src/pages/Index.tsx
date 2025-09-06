@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Technologies from "@/components/Technologies";
 import Footer from "@/components/Footer";
-import FloatingChat from "@/components/FloatingChat";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 
 const Index = () => {
@@ -18,7 +17,6 @@ const Index = () => {
         </div>
         <Footer />
       </main>
-      <FloatingChat />
       <PWAInstallPrompt />
     </>
   );
