@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Technologies from "@/components/Technologies";
 import Footer from "@/components/Footer";
-import PWAInstallPrompt from "@/components/PWAInstallPrompt";
+
 
 const Index = () => {
   return (
@@ -17,7 +17,7 @@ const Index = () => {
         </div>
         <Footer />
       </main>
-      <PWAInstallPrompt />
+      
     </>
   );
 };

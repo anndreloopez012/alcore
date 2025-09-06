@@ -7,6 +7,7 @@ import PageTransition from "./components/PageTransition";
 import Index from "./pages/Index";
 import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
+import ContactCardPage from "./pages/ContactCardPage";
 import CloudServersPage from "./pages/CloudServersPage";
 import ServerCXPage from "./pages/ServerCXPage";
 import ServerCPXPage from "./pages/ServerCPXPage";
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/desarrollo-medida" element={<CustomDevelopmentPage />} />
           <Route path="/productos" element={<ProductsPage />} />
             <Route path="/contacto" element={<ContactPage />} />
+            <Route path="/tarjeta" element={<ContactCardPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
