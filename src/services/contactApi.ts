@@ -16,7 +16,7 @@ export const getContactInfo = async (): Promise<ContactInfo> => {
   await new Promise(resolve => setTimeout(resolve, 500));
   
   return {
-    name: "ALCORE Digital Horizon",
+      name: "ALCORE Technologies Solution",
     position: "Soluciones Tecnológicas Completas",
     company: "ALCORE",
     phone: "+1234567890",
