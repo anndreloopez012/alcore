@@ -37,23 +37,30 @@
     {
       "name": "Tarjeta Digital",
       "short_name": "Tarjeta", 
-      "description": "Tarjeta de presentación digital ALCORE",
+      "description": "Acceso directo a tarjeta de presentación ALCORE",
       "url": "/tarjeta",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/favicon.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Inicio",
+      "short_name": "Home",
+      "description": "Página principal de ALCORE", 
+      "url": "/",
+      "icons": [{ "src": "/favicon.png", "sizes": "96x96", "type": "image/png" }]
     },
     {
       "name": "Contacto",
       "short_name": "Contacto",
       "description": "Contactar con ALCORE", 
       "url": "/contacto",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/favicon.png", "sizes": "96x96", "type": "image/png" }]
     },
     {
       "name": "Servicios",
       "short_name": "Servicios",
       "description": "Ver nuestros servicios",
       "url": "/#servicios", 
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/favicon.png", "sizes": "96x96", "type": "image/png" }]
     }
   ]
 }

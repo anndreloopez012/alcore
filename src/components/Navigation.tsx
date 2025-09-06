@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen, Settings, Package, ChevronDown, MessageCircle } from "lucide-react";
+import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen, Settings, Package, ChevronDown, MessageCircle, CreditCard } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -23,13 +24,18 @@ const Navigation = () => {
     { name: "Servicios", href: "/#servicios", icon: Code, section: "servicios", hasDropdown: true },
     { name: "Tecnologías", href: "/#tecnologias", icon: Cloud, section: "tecnologias" },
     { name: "Proyectos", href: "/proyectos", icon: FolderOpen, section: "proyectos" },
-    { name: "Contacto", href: "/contacto", icon: Mail, section: "contacto" },
+    { name: "Contacto", href: "/contacto", icon: Mail, section: "contacto", hasDropdown: true },
   ];
 
   const servicesSubmenu = [
     { name: "Desarrollo a Medida", href: "/desarrollo-medida", icon: Settings },
     { name: "Productos de Software", href: "/productos", icon: Package },
     { name: "Servidores en la Nube", href: "/servidores-cloud", icon: Cloud },
+  ];
+
+  const contactSubmenu = [
+    { name: "Formulario de Contacto", href: "/contacto", icon: Mail },
+    { name: "Tarjeta Digital", href: "/tarjeta", icon: CreditCard },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -112,8 +118,8 @@ const Navigation = () => {
                       {item.hasDropdown ? (
                         <div 
                           className="relative"
-                          onMouseEnter={() => setServicesDropdownOpen(true)}
-                          onMouseLeave={() => setServicesDropdownOpen(false)}
+                          onMouseEnter={() => item.name === "Servicios" ? setServicesDropdownOpen(true) : setContactDropdownOpen(true)}
+                          onMouseLeave={() => item.name === "Servicios" ? setServicesDropdownOpen(false) : setContactDropdownOpen(false)}
                         >
                           <button
                             onClick={(e) => handleNavClick(item, e)}
@@ -125,7 +131,7 @@ const Navigation = () => {
                           </button>
                           
                           {/* Services Dropdown */}
-                          {servicesDropdownOpen && (
+                          {servicesDropdownOpen && item.name === "Servicios" && (
                             <div 
                               style={{
                                 position: 'absolute',
@@ -149,6 +155,40 @@ const Navigation = () => {
                                     to={subItem.href}
                                     className="flex items-center gap-3 px-4 py-3 text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
                                     onClick={() => setServicesDropdownOpen(false)}
+                                  >
+                                    <subItem.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
+                                    <span className="text-sm font-medium">{subItem.name}</span>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Contact Dropdown */}
+                          {contactDropdownOpen && item.name === "Contacto" && (
+                            <div 
+                              style={{
+                                position: 'absolute',
+                                top: '100%',
+                                right: 0,
+                                marginTop: '0.5rem',
+                                width: '14rem',
+                                zIndex: 10001,
+                                backgroundColor: 'rgba(var(--background), 0.95)',
+                                backdropFilter: 'blur(12px)',
+                                border: '1px solid rgba(var(--border), 0.2)',
+                                borderRadius: '0.75rem',
+                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                                overflow: 'hidden'
+                              }}
+                            >
+                              <div className="py-2">
+                                {contactSubmenu.map((subItem) => (
+                                  <Link
+                                    key={subItem.name}
+                                    to={subItem.href}
+                                    className="flex items-center gap-3 px-4 py-3 text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
+                                    onClick={() => setContactDropdownOpen(false)}
                                   >
                                     <subItem.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
                                     <span className="text-sm font-medium">{subItem.name}</span>
@@ -218,7 +258,7 @@ const Navigation = () => {
                         <ChevronDown className="h-4 w-4 ml-auto" />
                       </button>
                       <div className="ml-6 mt-2 space-y-1">
-                        {servicesSubmenu.map((subItem) => (
+                        {(item.name === "Servicios" ? servicesSubmenu : contactSubmenu).map((subItem) => (
                           <Link
                             key={subItem.name}
                             to={subItem.href}
