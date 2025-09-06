@@ -35,6 +35,13 @@
   ],
   "shortcuts": [
     {
+      "name": "Tarjeta Digital",
+      "short_name": "Tarjeta",
+      "description": "Tarjeta de presentación digital ALCORE",
+      "url": "/tarjeta",
+      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
+    },
+    {
       "name": "Contacto",
       "short_name": "Contacto",
       "description": "Contactar con ALCORE",
@@ -46,6 +53,13 @@
       "short_name": "Servicios",
       "description": "Ver nuestros servicios",
       "url": "/#servicios",
+      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Productos",
+      "short_name": "Productos",
+      "description": "Ver nuestros productos de software",
+      "url": "/productos",
       "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
     }
   ],

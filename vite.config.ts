@@ -39,6 +39,29 @@ export default defineConfig(({ mode }) => ({
             type: 'image/png',
             purpose: 'any'
           }
+        ],
+        shortcuts: [
+          {
+            name: 'Tarjeta Digital',
+            short_name: 'Tarjeta',
+            description: 'Tarjeta de presentación digital ALCORE',
+            url: '/tarjeta',
+            icons: [{ src: '/favicon.png', sizes: '96x96' }]
+          },
+          {
+            name: 'Contacto',
+            short_name: 'Contacto',
+            description: 'Contactar con ALCORE',
+            url: '/contacto',
+            icons: [{ src: '/favicon.png', sizes: '96x96' }]
+          },
+          {
+            name: 'Servicios',
+            short_name: 'Servicios',
+            description: 'Ver nuestros servicios',
+            url: '/#servicios',
+            icons: [{ src: '/favicon.png', sizes: '96x96' }]
+          }
         ]
       },
       workbox: {

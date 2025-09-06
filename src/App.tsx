@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageTransition from "./components/PageTransition";
+import PWAWrapper from "./components/PWAWrapper";
 import Index from "./pages/Index";
 import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
@@ -22,9 +23,10 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+      <PWAWrapper>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
         <PageTransition>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -42,7 +44,8 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </PageTransition>
-      </BrowserRouter>
+        </BrowserRouter>
+      </PWAWrapper>
     </TooltipProvider>
   </QueryClientProvider>
 );

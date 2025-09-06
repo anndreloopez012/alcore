@@ -111,7 +111,7 @@ END:VCARD`;
   }
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center overflow-hidden p-4">
+    <div className="min-h-screen relative flex items-center justify-center overflow-hidden p-4 pwa-content">
       {/* Animated background elements like Hero */}
       <div className="absolute inset-0 opacity-20">
         <div 
