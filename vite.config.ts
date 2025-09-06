@@ -16,54 +16,7 @@ export default defineConfig(({ mode }) => ({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.png', 'robots.txt'],
-      manifest: {
-        name: 'ALCORE Digital Horizon',
-        short_name: 'ALCORE',
-        description: 'Soluciones tecnológicas completas que transforman ideas en realidades digitales exitosas',
-        theme_color: '#0ea5e9',
-        background_color: '#1a1f2e',
-        display: 'standalone',
-        orientation: 'portrait',
-        scope: '/',
-        start_url: '/',
-        icons: [
-          {
-            src: '/favicon.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'maskable'
-          },
-          {
-            src: '/favicon.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any'
-          }
-        ],
-        shortcuts: [
-          {
-            name: 'Tarjeta Digital',
-            short_name: 'Tarjeta',
-            description: 'Tarjeta de presentación digital ALCORE',
-            url: '/tarjeta',
-            icons: [{ src: '/favicon.png', sizes: '96x96' }]
-          },
-          {
-            name: 'Contacto',
-            short_name: 'Contacto',
-            description: 'Contactar con ALCORE',
-            url: '/contacto',
-            icons: [{ src: '/favicon.png', sizes: '96x96' }]
-          },
-          {
-            name: 'Servicios',
-            short_name: 'Servicios',
-            description: 'Ver nuestros servicios',
-            url: '/#servicios',
-            icons: [{ src: '/favicon.png', sizes: '96x96' }]
-          }
-        ]
-      },
+      manifest: false, // Use external manifest.json instead
       workbox: {
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,webp,woff,woff2,ttf,eot}'],
@@ -75,7 +28,7 @@ export default defineConfig(({ mode }) => ({
               cacheName: 'google-fonts-cache',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+                maxAgeSeconds: 60 * 60 * 24 * 365
               }
             }
           },
@@ -86,7 +39,7 @@ export default defineConfig(({ mode }) => ({
               cacheName: 'gstatic-fonts-cache',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+                maxAgeSeconds: 60 * 60 * 24 * 365
               }
             }
           },
@@ -97,7 +50,7 @@ export default defineConfig(({ mode }) => ({
               cacheName: 'images-cache',
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+                maxAgeSeconds: 60 * 60 * 24 * 30
               }
             }
           },
@@ -108,7 +61,7 @@ export default defineConfig(({ mode }) => ({
               cacheName: 'static-resources',
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
+                maxAgeSeconds: 60 * 60 * 24 * 7
               }
             }
           }
