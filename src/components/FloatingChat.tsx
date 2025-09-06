@@ -19,7 +19,6 @@ interface ChatConfig {
   placeholderText: string;
 }
 
-// Configuración para n8n - el usuario puede modificar esto
 const chatConfig: ChatConfig = {
   n8nWebhookUrl: process.env.REACT_APP_N8N_WEBHOOK_URL || "https://tu-n8n-instance.com/webhook/chat",
   botName: "ALCORE Assistant",
@@ -54,7 +53,6 @@ const FloatingChat = () => {
   const sendMessage = async (message: string) => {
     if (!message.trim()) return;
 
-    // Security validation
     const sanitizedMessage = sanitizeInput(message);
     if (!ValidationSchemas.chatForm.message(sanitizedMessage)) {
       toast({
@@ -66,7 +64,6 @@ const FloatingChat = () => {
       return;
     }
 
-    // Rate limiting
     const clientId = `chat_${Date.now()}`;
     if (!rateLimiter.isAllowed(clientId)) {
       toast({
@@ -78,7 +75,6 @@ const FloatingChat = () => {
       return;
     }
 
-    // Agregar mensaje del usuario
     const userMessage: Message = {
       id: Date.now().toString(),
       text: sanitizedMessage,
@@ -91,7 +87,6 @@ const FloatingChat = () => {
     setIsLoading(true);
 
     try {
-      // Enviar a n8n
       const response = await fetch(chatConfig.n8nWebhookUrl, {
         method: "POST",
         headers: {
@@ -104,11 +99,10 @@ const FloatingChat = () => {
           sessionId: `chat_${Date.now()}`,
           source: "chat_widget",
           page: window.location.href,
-          userAgent: navigator.userAgent.substring(0, 200), // Limit user agent length
+          userAgent: navigator.userAgent.substring(0, 200),
         }),
       });
 
-      // Simular respuesta del bot (ya que no-cors no permite leer la respuesta)
       setTimeout(() => {
         const botMessage: Message = {
           id: (Date.now() + 1).toString(),
@@ -145,134 +139,156 @@ const FloatingChat = () => {
     }
   };
 
+  // ESTILOS INLINE FIJOS COMO TU EJEMPLO - NO SE PUEDEN SOBRESCRIBIR
+  const chatButtonStyles = {
+    position: 'fixed' as const,
+    bottom: '20px',
+    right: '20px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    borderRadius: '50%',
+    width: '60px',
+    height: '60px',
+    fontSize: '24px',
+    cursor: 'pointer',
+    boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+    transition: 'transform 0.2s',
+    zIndex: 1000,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  };
+
+  const chatWindowStyles = {
+    position: 'fixed' as const,
+    bottom: '90px',
+    right: '20px',
+    width: '320px',
+    height: isMinimized ? '60px' : '400px',
+    backgroundColor: 'rgba(var(--background), 0.95)',
+    backdropFilter: 'blur(12px)',
+    border: '1px solid rgba(var(--border), 0.2)',
+    borderRadius: '1rem',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+    zIndex: 999,
+    transition: 'all 0.3s ease'
+  };
+
   return (
     <>
-      {/* FIXED FLOATING CHAT BUTTON - ALWAYS VISIBLE */}
-      <div 
-        style={{
-          position: 'fixed',
-          bottom: '1.5rem',
-          right: '1.5rem',
-          zIndex: 99997
-        }}
-      >
-        {!isOpen && (
-          <Button
-            onClick={() => setIsOpen(true)}
-            size="lg"
-            className="h-14 w-14 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 bg-gradient-to-r from-primary to-accent hover:scale-110 animate-pulse hover:animate-none"
-          >
-            <MessageCircle className="h-6 w-6" />
-          </Button>
-        )}
+      {/* BOTÓN DE CHAT FIJO COMO TU EJEMPLO */}
+      {!isOpen && (
+        <button
+          style={chatButtonStyles}
+          onClick={() => setIsOpen(true)}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
+          <MessageCircle size={24} />
+        </button>
+      )}
 
-        {/* FIXED FLOATING CHAT WINDOW - ALWAYS VISIBLE */}
-        {isOpen && (
-          <div 
-            className={`bg-background/95 backdrop-blur-xl border border-border/20 rounded-2xl shadow-2xl transition-all duration-300 ${
-              isMinimized ? 'w-80 h-16' : 'w-80 h-96'
-            }`}
-            style={{ 
-              position: 'fixed',
-              bottom: '1.5rem',
-              right: '1.5rem',
-              zIndex: 99997
-            }}
-          >
-            {/* Chat Header */}
-            <div className="flex items-center justify-between p-4 border-b border-border/20">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center">
-                  <Bot className="h-4 w-4 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-sm">{chatConfig.botName}</h3>
-                  <p className="text-xs text-muted-foreground">En línea</p>
-                </div>
+      {/* VENTANA DE CHAT FIJA */}
+      {isOpen && (
+        <div style={chatWindowStyles}>
+          {/* Chat Header */}
+          <div className="flex items-center justify-between p-4 border-b border-border/20">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center">
+                <Bot className="h-4 w-4 text-white" />
               </div>
-              <div className="flex items-center gap-1">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsMinimized(!isMinimized)}
-                  className="h-8 w-8"
-                >
-                  {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsOpen(false)}
-                  className="h-8 w-8"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
+              <div>
+                <h3 className="font-medium text-sm">{chatConfig.botName}</h3>
+                <p className="text-xs text-muted-foreground">En línea</p>
               </div>
             </div>
-
-            {/* Chat Messages */}
-            {!isMinimized && (
-              <>
-                <div className="flex-1 p-4 h-64 overflow-y-auto space-y-4">
-                  {messages.map((message) => (
-                    <div
-                      key={message.id}
-                      className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                    >
-                      <div
-                        className={`max-w-[70%] p-3 rounded-2xl ${
-                          message.sender === 'user'
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted text-muted-foreground'
-                        }`}
-                      >
-                        <p className="text-sm">{message.text}</p>
-                        <p className="text-xs opacity-70 mt-1">
-                          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                  {isLoading && (
-                    <div className="flex justify-start">
-                      <div className="bg-muted text-muted-foreground p-3 rounded-2xl">
-                        <div className="flex space-x-1">
-                          <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                          <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                          <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
-                </div>
-
-                {/* Chat Input */}
-                <form onSubmit={handleSubmit} className="p-4 border-t border-border/20">
-                  <div className="flex gap-2">
-                    <Input
-                      value={inputValue}
-                      onChange={(e) => setInputValue(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder={chatConfig.placeholderText}
-                      className="flex-1"
-                      disabled={isLoading}
-                    />
-                    <Button 
-                      type="submit" 
-                      size="icon" 
-                      disabled={isLoading || !inputValue.trim()}
-                      className="shrink-0"
-                    >
-                      <Send className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </form>
-              </>
-            )}
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsMinimized(!isMinimized)}
+                className="h-8 w-8"
+              >
+                {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsOpen(false)}
+                className="h-8 w-8"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
-        )}
-      </div>
+
+          {/* Chat Messages */}
+          {!isMinimized && (
+            <>
+              <div className="flex-1 p-4 h-64 overflow-y-auto space-y-4">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[70%] p-3 rounded-2xl ${
+                        message.sender === 'user'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted text-muted-foreground'
+                      }`}
+                    >
+                      <p className="text-sm">{message.text}</p>
+                      <p className="text-xs opacity-70 mt-1">
+                        {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-muted text-muted-foreground p-3 rounded-2xl">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                        <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                        <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+
+              {/* Chat Input */}
+              <form onSubmit={handleSubmit} className="p-4 border-t border-border/20">
+                <div className="flex gap-2">
+                  <Input
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder={chatConfig.placeholderText}
+                    className="flex-1"
+                    disabled={isLoading}
+                  />
+                  <Button 
+                    type="submit" 
+                    size="icon" 
+                    disabled={isLoading || !inputValue.trim()}
+                    className="shrink-0"
+                  >
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+              </form>
+            </>
+          )}
+        </div>
+      )}
     </>
   );
 };

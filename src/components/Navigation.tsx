@@ -45,9 +45,8 @@ const Navigation = () => {
     
     if (item.href.startsWith('/#')) {
       if (location.pathname !== '/') {
-        // Navegar a home primero usando React Router, luego hacer scroll
         navigate('/');
-        setTimeout(() => scrollToSection(item.section), 400); // Increased delay for transition
+        setTimeout(() => scrollToSection(item.section), 400);
       } else {
         scrollToSection(item.section);
       }
@@ -55,142 +54,155 @@ const Navigation = () => {
     setIsMenuOpen(false);
   };
 
-  const handleContactClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigate('/contacto');
+  // ESTILOS INLINE FIJOS - NO SE PUEDEN SOBRESCRIBIR
+  const navStyles = {
+    position: 'fixed' as const,
+    top: 0,
+    left: 0,
+    right: 0,
+    width: '100%',
+    zIndex: 10000,
+    backgroundColor: 'transparent',
+    pointerEvents: 'none' as const
+  };
+
+  const containerStyles = {
+    pointerEvents: 'auto' as const,
+    margin: '0 auto',
+    padding: '1rem',
+    maxWidth: '1200px'
+  };
+
+  const mobileMenuStyles = {
+    position: 'fixed' as const,
+    top: 0,
+    left: 0,
+    right: 0,
+    width: '100%',
+    paddingTop: '6rem',
+    paddingLeft: '1rem',
+    paddingRight: '1rem',
+    zIndex: 9999,
+    backgroundColor: 'transparent'
   };
 
   return (
     <>
-      {/* FIXED FLOATING NAVIGATION - ALWAYS ON TOP */}
-      <div 
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          width: '100%',
-          zIndex: 99999,
-          pointerEvents: 'none'
-        }}
-      >
-        <div className="container mx-auto px-4 pt-4" style={{ pointerEvents: 'auto' }}>
-          <div className={`glass-card backdrop-blur-xl transition-all duration-500 rounded-2xl border border-border/20 max-w-6xl mx-auto ${
+      {/* NAVEGACIÓN FIJA */}
+      <div style={navStyles}>
+        <div style={containerStyles}>
+          <div className={`glass-card backdrop-blur-xl transition-all duration-500 rounded-2xl border border-border/20 ${
             scrolled ? 'shadow-2xl glow-primary py-3' : 'shadow-lg py-4'
           }`}>
             <div className="px-6">
               <div className="flex items-center justify-between">
-              {/* Logo with Isotipo */}
-              <Link to="/" className="flex items-center gap-3 group">
-                <img 
-                  src="/lovable-uploads/7939aa51-6ace-4a2e-b865-7f1ca2d69f21.png" 
-                  alt="ALCORE Technologies Solutions" 
-                  className="h-8 group-hover:glow-primary transition-all duration-300"
-                />
-              </Link>
+                {/* Logo */}
+                <Link to="/" className="flex items-center gap-3 group">
+                  <img 
+                    src="/lovable-uploads/7939aa51-6ace-4a2e-b865-7f1ca2d69f21.png" 
+                    alt="ALCORE Technologies Solutions" 
+                    className="h-8 group-hover:glow-primary transition-all duration-300"
+                  />
+                </Link>
 
-              {/* Desktop Navigation */}
-              <div className="hidden md:flex items-center space-x-2">
-                {navigationItems.map((item) => (
-                  <div key={item.name} className="relative">
-                    {item.hasDropdown ? (
-                      <div 
-                        className="relative"
-                        onMouseEnter={() => setServicesDropdownOpen(true)}
-                        onMouseLeave={() => setServicesDropdownOpen(false)}
-                      >
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex items-center space-x-2">
+                  {navigationItems.map((item) => (
+                    <div key={item.name} className="relative">
+                      {item.hasDropdown ? (
+                        <div 
+                          className="relative"
+                          onMouseEnter={() => setServicesDropdownOpen(true)}
+                          onMouseLeave={() => setServicesDropdownOpen(false)}
+                        >
+                          <button
+                            onClick={(e) => handleNavClick(item, e)}
+                            className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
+                          >
+                            <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
+                            <span className="text-sm font-medium">{item.name}</span>
+                            <ChevronDown className="h-3 w-3 transition-transform duration-300" />
+                          </button>
+                          
+                          {/* Services Dropdown */}
+                          {servicesDropdownOpen && (
+                            <div 
+                              style={{
+                                position: 'absolute',
+                                top: '100%',
+                                left: 0,
+                                marginTop: '0.5rem',
+                                width: '14rem',
+                                zIndex: 10001,
+                                backgroundColor: 'rgba(var(--background), 0.95)',
+                                backdropFilter: 'blur(12px)',
+                                border: '1px solid rgba(var(--border), 0.2)',
+                                borderRadius: '0.75rem',
+                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                                overflow: 'hidden'
+                              }}
+                            >
+                              <div className="py-2">
+                                {servicesSubmenu.map((subItem) => (
+                                  <Link
+                                    key={subItem.name}
+                                    to={subItem.href}
+                                    className="flex items-center gap-3 px-4 py-3 text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
+                                    onClick={() => setServicesDropdownOpen(false)}
+                                  >
+                                    <subItem.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
+                                    <span className="text-sm font-medium">{subItem.name}</span>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ) : item.href.startsWith('/#') ? (
                         <button
                           onClick={(e) => handleNavClick(item, e)}
                           className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
                         >
                           <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
                           <span className="text-sm font-medium">{item.name}</span>
-                          <ChevronDown className="h-3 w-3 transition-transform duration-300" />
-                          <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </button>
-                        
-                        {/* Services Dropdown */}
-                        {servicesDropdownOpen && (
-                          <div 
-                            className="absolute top-full left-0 mt-2 w-56 bg-background/95 backdrop-blur-xl border border-border/20 rounded-xl shadow-2xl overflow-hidden"
-                            style={{ zIndex: 99999 }}
-                          >
-                            <div className="py-2">
-                              {servicesSubmenu.map((subItem) => (
-                                <Link
-                                  key={subItem.name}
-                                  to={subItem.href}
-                                  className="flex items-center gap-3 px-4 py-3 text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
-                                  onClick={() => setServicesDropdownOpen(false)}
-                                >
-                                  <subItem.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
-                                  <span className="text-sm font-medium">{subItem.name}</span>
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ) : item.href.startsWith('/#') ? (
-                      <button
-                        onClick={(e) => handleNavClick(item, e)}
-                        className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
-                      >
-                        <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
-                        <span className="text-sm font-medium">{item.name}</span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </button>
-                    ) : (
-                      <Link
-                        to={item.href}
-                        className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
-                      >
-                        <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
-                        <span className="text-sm font-medium">{item.name}</span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </Link>
-                    )}
-                  </div>
-                ))}
-                
-                <Button variant="hero" size="sm" className="ml-4 px-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                  <Link to="/contacto">
-                    Comenzar Proyecto
-                  </Link>
-                </Button>
-              </div>
+                      ) : (
+                        <Link
+                          to={item.href}
+                          className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
+                        >
+                          <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
+                          <span className="text-sm font-medium">{item.name}</span>
+                        </Link>
+                      )}
+                    </div>
+                  ))}
+                  
+                  <Button variant="hero" size="sm" className="ml-4 px-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <Link to="/contacto">
+                      Comenzar Proyecto
+                    </Link>
+                  </Button>
+                </div>
 
-              {/* Mobile Menu Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden hover:bg-accent/10 transition-all duration-300"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Button>
+                {/* Mobile Menu Button */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="md:hidden hover:bg-accent/10 transition-all duration-300"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                  {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                </Button>
               </div>
             </div>
           </div>
         </div>
       </div>
-        
-      {/* FIXED FLOATING MOBILE MENU - ALWAYS ON TOP */}
+
+      {/* MENÚ MÓVIL FIJO */}
       {isMenuOpen && (
-        <div 
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            width: '100%',
-            paddingTop: '6rem',
-            paddingLeft: '1rem',
-            paddingRight: '1rem',
-            zIndex: 99998
-          }}
-          className="md:hidden"
-        >
+        <div style={mobileMenuStyles} className="md:hidden">
           <div className="glass-card backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden bg-background/95 max-w-6xl mx-auto mt-2">
             <div className="px-6 py-4 space-y-2">
               {navigationItems.map((item) => (
