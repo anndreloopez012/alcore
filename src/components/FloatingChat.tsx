@@ -147,14 +147,13 @@ const FloatingChat = () => {
 
   return (
     <>
-      {/* Floating Chat Button with Maximum Z-Index */}
+      {/* FIXED FLOATING CHAT BUTTON - ALWAYS VISIBLE */}
       <div 
-        className="fixed bottom-6 right-6 chat-widget"
-        style={{ 
-          zIndex: 99997,
+        style={{
           position: 'fixed',
           bottom: '1.5rem',
-          right: '1.5rem'
+          right: '1.5rem',
+          zIndex: 99997
         }}
       >
         {!isOpen && (
@@ -167,13 +166,18 @@ const FloatingChat = () => {
           </Button>
         )}
 
-        {/* Chat Window with Maximum Z-Index */}
+        {/* FIXED FLOATING CHAT WINDOW - ALWAYS VISIBLE */}
         {isOpen && (
           <div 
             className={`bg-background/95 backdrop-blur-xl border border-border/20 rounded-2xl shadow-2xl transition-all duration-300 ${
               isMinimized ? 'w-80 h-16' : 'w-80 h-96'
             }`}
-            style={{ zIndex: 99997 }}
+            style={{ 
+              position: 'fixed',
+              bottom: '1.5rem',
+              right: '1.5rem',
+              zIndex: 99997
+            }}
           >
             {/* Chat Header */}
             <div className="flex items-center justify-between p-4 border-b border-border/20">

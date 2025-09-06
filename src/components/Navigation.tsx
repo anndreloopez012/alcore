@@ -62,18 +62,19 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Navigation Bar with Maximum Z-Index */}
-      <nav 
-        className="fixed top-0 left-0 right-0 w-full bg-transparent pointer-events-none"
-        style={{ 
-          zIndex: 99999,
+      {/* FIXED FLOATING NAVIGATION - ALWAYS ON TOP */}
+      <div 
+        style={{
           position: 'fixed',
           top: 0,
           left: 0,
-          right: 0
+          right: 0,
+          width: '100%',
+          zIndex: 99999,
+          pointerEvents: 'none'
         }}
       >
-        <div className="container mx-auto px-4 pt-4 pointer-events-auto">
+        <div className="container mx-auto px-4 pt-4" style={{ pointerEvents: 'auto' }}>
           <div className={`glass-card backdrop-blur-xl transition-all duration-500 rounded-2xl border border-border/20 max-w-6xl mx-auto ${
             scrolled ? 'shadow-2xl glow-primary py-3' : 'shadow-lg py-4'
           }`}>
@@ -108,7 +109,7 @@ const Navigation = () => {
                           <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </button>
                         
-                        {/* Services Dropdown with Maximum Z-Index */}
+                        {/* Services Dropdown */}
                         {servicesDropdownOpen && (
                           <div 
                             className="absolute top-full left-0 mt-2 w-56 bg-background/95 backdrop-blur-xl border border-border/20 rounded-xl shadow-2xl overflow-hidden"
@@ -172,19 +173,23 @@ const Navigation = () => {
             </div>
           </div>
         </div>
-      </nav>
+      </div>
         
-      {/* Mobile Navigation Dropdown with Maximum Z-Index */}
+      {/* FIXED FLOATING MOBILE MENU - ALWAYS ON TOP */}
       {isMenuOpen && (
         <div 
-          className="fixed top-0 left-0 right-0 w-full pt-24 px-4 md:hidden"
-          style={{ 
-            zIndex: 99998,
+          style={{
             position: 'fixed',
             top: 0,
             left: 0,
-            right: 0
+            right: 0,
+            width: '100%',
+            paddingTop: '6rem',
+            paddingLeft: '1rem',
+            paddingRight: '1rem',
+            zIndex: 99998
           }}
+          className="md:hidden"
         >
           <div className="glass-card backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden bg-background/95 max-w-6xl mx-auto mt-2">
             <div className="px-6 py-4 space-y-2">
