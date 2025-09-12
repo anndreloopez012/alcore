@@ -7,8 +7,7 @@ import { openWhatsAppQuote } from "@/utils/whatsapp";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
-  const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,21 +21,31 @@ const Navigation = () => {
 
   const navigationItems = [
     { name: "Inicio", href: "/", icon: Home, section: "hero" },
-    { name: "Servicios", href: "/#servicios", icon: Code, section: "servicios", hasDropdown: true },
+    { 
+      name: "Servicios", 
+      href: "/#servicios", 
+      icon: Code, 
+      section: "servicios", 
+      hasDropdown: true,
+      submenu: [
+        { name: "Desarrollo a Medida", href: "/desarrollo-medida", icon: Settings, description: "Soluciones personalizadas" },
+        { name: "Productos de Software", href: "/productos", icon: Package, description: "Software listo para usar" },
+        { name: "Servidores en la Nube", href: "/servidores-cloud", icon: Cloud, description: "Infraestructura escalable" },
+      ]
+    },
     { name: "Tecnologías", href: "/#tecnologias", icon: Cloud, section: "tecnologias" },
     { name: "Proyectos", href: "/proyectos", icon: FolderOpen, section: "proyectos" },
-    { name: "Contacto", href: "/contacto", icon: Mail, section: "contacto", hasDropdown: true },
-  ];
-
-  const servicesSubmenu = [
-    { name: "Desarrollo a Medida", href: "/desarrollo-medida", icon: Settings },
-    { name: "Productos de Software", href: "/productos", icon: Package },
-    { name: "Servidores en la Nube", href: "/servidores-cloud", icon: Cloud },
-  ];
-
-  const contactSubmenu = [
-    { name: "Formulario de Contacto", href: "/contacto", icon: Mail },
-    { name: "Tarjeta Digital", href: "/tarjeta", icon: CreditCard },
+    { 
+      name: "Contacto", 
+      href: "/contacto", 
+      icon: Mail, 
+      section: "contacto", 
+      hasDropdown: true,
+      submenu: [
+        { name: "Formulario de Contacto", href: "/contacto", icon: Mail, description: "Contáctanos directamente" },
+        { name: "Tarjeta Digital", href: "/tarjeta", icon: CreditCard, description: "Información de contacto" },
+      ]
+    },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -59,259 +68,207 @@ const Navigation = () => {
       }
     }
     setIsMenuOpen(false);
+    setActiveDropdown(null);
   };
 
-  // ESTILOS INLINE FIJOS - NO SE PUEDEN SOBRESCRIBIR
-  const navStyles = {
-    position: 'fixed' as const,
-    top: 0,
-    left: 0,
-    right: 0,
-    width: '100%',
-    zIndex: 10000,
-    backgroundColor: 'transparent',
-    pointerEvents: 'none' as const
-  };
-
-  const containerStyles = {
-    pointerEvents: 'auto' as const,
-    margin: '0 auto',
-    padding: '1rem',
-    maxWidth: '1200px'
-  };
-
-  const mobileMenuStyles = {
-    position: 'fixed' as const,
-    top: 0,
-    left: 0,
-    right: 0,
-    width: '100%',
-    paddingTop: '6rem',
-    paddingLeft: '1rem',
-    paddingRight: '1rem',
-    zIndex: 9999,
-    backgroundColor: 'transparent'
+  const handleDropdownToggle = (name: string) => {
+    setActiveDropdown(activeDropdown === name ? null : name);
   };
 
   return (
     <>
-      {/* NAVEGACIÓN FIJA */}
-      <div style={navStyles}>
-        <div style={containerStyles}>
-          <div className={`glass-card backdrop-blur-xl transition-all duration-500 rounded-2xl border border-border/20 ${
-            scrolled ? 'shadow-2xl glow-primary py-3' : 'shadow-lg py-4'
-          }`}>
-            <div className="px-6">
-              <div className="flex items-center justify-between">
-                {/* Logo */}
-                <Link to="/" className="flex items-center gap-3 group">
-                  <img 
-                    src="/lovable-uploads/7939aa51-6ace-4a2e-b865-7f1ca2d69f21.png" 
-                    alt="ALCORE Technologies Solutions" 
-                    className="h-8 group-hover:glow-primary transition-all duration-300"
-                  />
-                </Link>
+      {/* FLOATING NAVIGATION */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-lg' 
+          : 'bg-transparent'
+      }`}>
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-3 group z-50">
+              <img 
+                src="/lovable-uploads/7939aa51-6ace-4a2e-b865-7f1ca2d69f21.png" 
+                alt="ALCORE Technologies Solutions" 
+                className="h-8 group-hover:scale-110 transition-transform duration-300"
+              />
+            </Link>
 
-                {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center space-x-2">
-                  {navigationItems.map((item) => (
-                    <div key={item.name} className="relative">
-                      {item.hasDropdown ? (
-                        <div 
-                          className="relative"
-                          onMouseEnter={() => item.name === "Servicios" ? setServicesDropdownOpen(true) : setContactDropdownOpen(true)}
-                          onMouseLeave={() => item.name === "Servicios" ? setServicesDropdownOpen(false) : setContactDropdownOpen(false)}
-                        >
-                          <button
-                            onClick={(e) => handleNavClick(item, e)}
-                            className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
-                          >
-                            <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
-                            <span className="text-sm font-medium">{item.name}</span>
-                            <ChevronDown className="h-3 w-3 transition-transform duration-300" />
-                          </button>
-                          
-                          {/* Services Dropdown */}
-                          {servicesDropdownOpen && item.name === "Servicios" && (
-                            <div 
-                              style={{
-                                position: 'absolute',
-                                top: '100%',
-                                left: 0,
-                                marginTop: '0.5rem',
-                                width: '14rem',
-                                zIndex: 10001,
-                                backgroundColor: 'rgba(var(--background), 0.95)',
-                                backdropFilter: 'blur(12px)',
-                                border: '1px solid rgba(var(--border), 0.2)',
-                                borderRadius: '0.75rem',
-                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                                overflow: 'hidden'
-                              }}
-                            >
-                              <div className="py-2">
-                                {servicesSubmenu.map((subItem) => (
-                                  <Link
-                                    key={subItem.name}
-                                    to={subItem.href}
-                                    className="flex items-center gap-3 px-4 py-3 text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
-                                    onClick={() => setServicesDropdownOpen(false)}
-                                  >
-                                    <subItem.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
-                                    <span className="text-sm font-medium">{subItem.name}</span>
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Contact Dropdown */}
-                          {contactDropdownOpen && item.name === "Contacto" && (
-                            <div 
-                              style={{
-                                position: 'absolute',
-                                top: '100%',
-                                right: 0,
-                                marginTop: '0.5rem',
-                                width: '14rem',
-                                zIndex: 10001,
-                                backgroundColor: 'rgba(var(--background), 0.95)',
-                                backdropFilter: 'blur(12px)',
-                                border: '1px solid rgba(var(--border), 0.2)',
-                                borderRadius: '0.75rem',
-                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                                overflow: 'hidden'
-                              }}
-                            >
-                              <div className="py-2">
-                                {contactSubmenu.map((subItem) => (
-                                  <Link
-                                    key={subItem.name}
-                                    to={subItem.href}
-                                    className="flex items-center gap-3 px-4 py-3 text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
-                                    onClick={() => setContactDropdownOpen(false)}
-                                  >
-                                    <subItem.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
-                                    <span className="text-sm font-medium">{subItem.name}</span>
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ) : item.href.startsWith('/#') ? (
-                        <button
-                          onClick={(e) => handleNavClick(item, e)}
-                          className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
-                        >
-                          <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
-                          <span className="text-sm font-medium">{item.name}</span>
-                        </button>
-                      ) : (
-                        <Link
-                          to={item.href}
-                          className="flex items-center gap-2 px-4 py-2 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group relative overflow-hidden"
-                        >
-                          <item.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
-                          <span className="text-sm font-medium">{item.name}</span>
-                        </Link>
-                      )}
-                    </div>
-                  ))}
-                  
-                  <Button 
-                    variant="hero" 
-                    size="sm" 
-                    className="ml-4 px-6 shadow-lg hover:shadow-xl transition-all duration-300"
-                    onClick={() => openWhatsAppQuote("comenzar nuevo proyecto")}
-                  >
-                    Comenzar Proyecto
-                  </Button>
-                </div>
-
-                {/* Mobile Menu Button */}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="md:hidden hover:bg-accent/10 transition-all duration-300"
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
-                  {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* MENÚ MÓVIL FIJO */}
-      {isMenuOpen && (
-        <div style={mobileMenuStyles} className="md:hidden">
-          <div className="glass-card backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden bg-background/95 max-w-6xl mx-auto mt-2">
-            <div className="px-6 py-4 space-y-2">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-1">
               {navigationItems.map((item) => (
-                <div key={item.name}>
+                <div key={item.name} className="relative">
                   {item.hasDropdown ? (
-                    <div>
+                    <div className="relative">
                       <button
-                        onClick={(e) => handleNavClick(item, e)}
-                        className="flex items-center gap-3 w-full text-left p-3 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
+                        onClick={(e) => {
+                          handleNavClick(item, e);
+                          handleDropdownToggle(item.name);
+                        }}
+                        onMouseEnter={() => setActiveDropdown(item.name)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                          activeDropdown === item.name
+                            ? 'bg-primary/10 text-primary'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                        }`}
                       >
-                        <item.icon className="h-5 w-5 group-hover:text-accent transition-colors" />
-                        <span className="font-medium">{item.name}</span>
-                        <ChevronDown className="h-4 w-4 ml-auto" />
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.name}</span>
+                        <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${
+                          activeDropdown === item.name ? 'rotate-180' : ''
+                        }`} />
                       </button>
-                      <div className="ml-6 mt-2 space-y-1">
-                        {(item.name === "Servicios" ? servicesSubmenu : contactSubmenu).map((subItem) => (
-                          <Link
-                            key={subItem.name}
-                            to={subItem.href}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="flex items-center gap-3 w-full text-left p-2 rounded-lg text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group text-sm"
-                          >
-                            <subItem.icon className="h-4 w-4 group-hover:text-accent transition-colors" />
-                            <span>{subItem.name}</span>
-                          </Link>
-                        ))}
-                      </div>
+                      
+                      {/* Dropdown Menu */}
+                      {activeDropdown === item.name && (
+                        <div 
+                          className="absolute top-full left-0 mt-2 w-72 bg-background/95 backdrop-blur-xl border border-border/50 rounded-xl shadow-xl z-50"
+                          onMouseLeave={() => setActiveDropdown(null)}
+                        >
+                          <div className="p-2">
+                            {item.submenu?.map((subItem) => (
+                              <Link
+                                key={subItem.name}
+                                to={subItem.href}
+                                onClick={() => setActiveDropdown(null)}
+                                className="flex items-start gap-3 p-3 rounded-lg text-sm hover:bg-muted/50 transition-colors group"
+                              >
+                                <div className="p-2 rounded-md bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                                  <subItem.icon className="h-4 w-4" />
+                                </div>
+                                <div>
+                                  <div className="font-medium text-foreground">{subItem.name}</div>
+                                  <div className="text-xs text-muted-foreground">{subItem.description}</div>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ) : item.href.startsWith('/#') ? (
                     <button
                       onClick={(e) => handleNavClick(item, e)}
-                      className="flex items-center gap-3 w-full text-left p-3 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
                     >
-                      <item.icon className="h-5 w-5 group-hover:text-accent transition-colors" />
-                      <span className="font-medium">{item.name}</span>
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.name}</span>
                     </button>
                   ) : (
                     <Link
                       to={item.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 w-full text-left p-3 rounded-xl text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 group"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
                     >
-                      <item.icon className="h-5 w-5 group-hover:text-accent transition-colors" />
-                      <span className="font-medium">{item.name}</span>
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.name}</span>
                     </Link>
                   )}
                 </div>
               ))}
               
-              <div className="pt-4 border-t border-border">
-                <Button 
-                  variant="hero" 
-                  className="w-full shadow-lg hover:shadow-xl transition-all duration-300"
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    openWhatsAppQuote("comenzar nuevo proyecto");
-                  }}
-                >
-                  Comenzar Proyecto
-                </Button>
+              <Button 
+                onClick={() => openWhatsAppQuote("comenzar nuevo proyecto")}
+                size="sm" 
+                className="ml-4 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium px-6 shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Comenzar Proyecto
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden relative z-50"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border/50">
+            <div className="container mx-auto px-4 py-4">
+              <div className="space-y-2">
+                {navigationItems.map((item) => (
+                  <div key={item.name}>
+                    {item.hasDropdown ? (
+                      <div>
+                        <button
+                          onClick={() => handleDropdownToggle(item.name)}
+                          className="flex items-center justify-between w-full p-3 rounded-lg text-left font-medium hover:bg-muted/50 transition-colors"
+                        >
+                          <div className="flex items-center gap-3">
+                            <item.icon className="h-5 w-5" />
+                            <span>{item.name}</span>
+                          </div>
+                          <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
+                            activeDropdown === item.name ? 'rotate-180' : ''
+                          }`} />
+                        </button>
+                        
+                        {activeDropdown === item.name && (
+                          <div className="ml-6 mt-2 space-y-1">
+                            {item.submenu?.map((subItem) => (
+                              <Link
+                                key={subItem.name}
+                                to={subItem.href}
+                                onClick={() => {
+                                  setIsMenuOpen(false);
+                                  setActiveDropdown(null);
+                                }}
+                                className="flex items-center gap-3 p-2 rounded-lg text-sm hover:bg-muted/50 transition-colors"
+                              >
+                                <subItem.icon className="h-4 w-4" />
+                                <span>{subItem.name}</span>
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ) : item.href.startsWith('/#') ? (
+                      <button
+                        onClick={(e) => handleNavClick(item, e)}
+                        className="flex items-center gap-3 w-full p-3 rounded-lg text-left font-medium hover:bg-muted/50 transition-colors"
+                      >
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.name}</span>
+                      </button>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center gap-3 w-full p-3 rounded-lg text-left font-medium hover:bg-muted/50 transition-colors"
+                      >
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.name}</span>
+                      </Link>
+                    )}
+                  </div>
+                ))}
+                
+                <div className="pt-4 border-t border-border">
+                  <Button 
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      openWhatsAppQuote("comenzar nuevo proyecto");
+                    }}
+                    className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium shadow-lg"
+                  >
+                    Comenzar Proyecto
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </nav>
+
+      {/* Spacer to prevent content from hiding behind fixed nav */}
+      <div className="h-16"></div>
     </>
   );
 };
