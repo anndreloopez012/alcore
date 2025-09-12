@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { openWhatsAppQuote, getServerQuoteContext } from "@/utils/whatsapp";
 
 const ServerCXPage = () => {
   const navigate = useNavigate();
@@ -131,7 +132,10 @@ const ServerCXPage = () => {
                         <div className="font-semibold text-lg">{config.traffic}</div>
                       </div>
                       <div className="text-center">
-                        <Button className="w-full">
+                        <Button 
+                          className="w-full"
+                          onClick={() => openWhatsAppQuote(getServerQuoteContext(`${serverInfo.type} (${serverInfo.series})`, config.name))}
+                        >
                           Solicitar Cotización
                         </Button>
                       </div>

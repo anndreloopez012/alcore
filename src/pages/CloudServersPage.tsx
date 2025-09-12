@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
+import { openWhatsAppQuote } from "@/utils/whatsapp";
 
 const CloudServersPage = () => {
   const navigate = useNavigate();
@@ -187,7 +188,11 @@ const CloudServersPage = () => {
                 Contáctanos para obtener una solución personalizada que se adapte 
                 perfectamente a las necesidades de tu proyecto.
               </p>
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90"
+                onClick={() => openWhatsAppQuote("servicios cloud")}
+              >
                 Solicitar Cotización
               </Button>
             </div>
