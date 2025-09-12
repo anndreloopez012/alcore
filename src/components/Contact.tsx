@@ -1,85 +1,91 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import { openWhatsAppQuote } from "@/utils/whatsapp";
 
 const Contact = () => {
+  const contactInfo = {
+    phone: "+1234567890",
+    email: "contacto@alcore.dev",
+    telegram: "@alcore_digital"
+  };
+
+  const openEmail = () => {
+    window.open(`mailto:${contactInfo.email}?subject=Consulta sobre servicios ALCORE&body=Hola, me gustaría obtener más información sobre sus servicios.`, '_blank');
+  };
+
+  const openTelegram = () => {
+    window.open(`https://t.me/${contactInfo.telegram.replace('@', '')}`, '_blank');
+  };
   return (
     <section className="py-8 relative">
       <div className="container mx-auto px-6">
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Form */}
+          {/* Contact Buttons */}
           <div className="glass-card p-8">
             <div className="flex items-center gap-3 mb-6">
               <MessageCircle className="h-6 w-6 text-accent" />
-              <h3 className="text-2xl font-bold">Envíanos un mensaje</h3>
+              <h3 className="text-2xl font-bold">Contáctanos Directamente</h3>
             </div>
             
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Nombre *</label>
-                  <Input 
-                    placeholder="Tu nombre completo" 
-                    className="bg-muted/20 border-border focus:border-accent transition-colors"
-                  />
+            <div className="space-y-4">
+              <p className="text-muted-foreground mb-6">
+                Elige tu método de contacto preferido para una respuesta inmediata
+              </p>
+
+              {/* WhatsApp Button */}
+              <Button 
+                onClick={() => openWhatsAppQuote("consulta general")}
+                className="w-full p-6 h-auto bg-green-600 hover:bg-green-700 text-white"
+                size="lg"
+              >
+                <div className="flex items-center gap-4">
+                  <MessageCircle className="h-8 w-8" />
+                  <div className="text-left">
+                    <div className="font-semibold text-lg">WhatsApp</div>
+                    <div className="text-sm opacity-90">Respuesta inmediata • {contactInfo.phone}</div>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Empresa</label>
-                  <Input 
-                    placeholder="Nombre de tu empresa" 
-                    className="bg-muted/20 border-border focus:border-accent transition-colors"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">Email *</label>
-                <Input 
-                  type="email" 
-                  placeholder="tu@email.com" 
-                  className="bg-muted/20 border-border focus:border-accent transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">Teléfono</label>
-                <Input 
-                  placeholder="+1 (555) 123-4567" 
-                  className="bg-muted/20 border-border focus:border-accent transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">Tipo de Proyecto</label>
-                <select className="w-full p-3 bg-muted/20 border border-border rounded-md focus:border-accent transition-colors text-foreground">
-                  <option>Desarrollo a Medida</option>
-                  <option>Producto de Software</option>
-                  <option>Servidores en Nube</option>
-                  <option>Consultoría Técnica</option>
-                  <option>Otro</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">Mensaje *</label>
-                <Textarea 
-                  placeholder="Cuéntanos sobre tu proyecto, objetivos y cualquier requerimiento específico..."
-                  rows={5}
-                  className="bg-muted/20 border-border focus:border-accent transition-colors resize-none"
-                />
-              </div>
-
-              <Button variant="hero" size="lg" className="w-full group">
-                <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                Enviar mensaje
               </Button>
 
-              <p className="text-xs text-muted-foreground text-center">
-                * Campos obligatorios. Responderemos en menos de 24 horas.
-              </p>
-            </form>
+              {/* Email Button */}
+              <Button 
+                onClick={openEmail}
+                className="w-full p-6 h-auto bg-blue-600 hover:bg-blue-700 text-white"
+                size="lg"
+              >
+                <div className="flex items-center gap-4">
+                  <Mail className="h-8 w-8" />
+                  <div className="text-left">
+                    <div className="font-semibold text-lg">Email</div>
+                    <div className="text-sm opacity-90">Respuesta en 24h • {contactInfo.email}</div>
+                  </div>
+                </div>
+              </Button>
+
+              {/* Telegram Button */}
+              <Button 
+                onClick={openTelegram}
+                className="w-full p-6 h-auto bg-sky-500 hover:bg-sky-600 text-white"
+                size="lg"
+              >
+                <div className="flex items-center gap-4">
+                  <MessageCircle className="h-8 w-8" />
+                  <div className="text-left">
+                    <div className="font-semibold text-lg">Telegram</div>
+                    <div className="text-sm opacity-90">Chat directo • {contactInfo.telegram}</div>
+                  </div>
+                </div>
+              </Button>
+
+              <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                <p className="text-sm text-muted-foreground text-center">
+                  💬 <strong>WhatsApp</strong> para respuestas rápidas<br/>
+                  📧 <strong>Email</strong> para consultas detalladas<br/>
+                  📱 <strong>Telegram</strong> para chat instantáneo
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Contact Info */}
@@ -95,7 +101,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold">Email</p>
-                    <p className="text-muted-foreground">contacto@alcore.tech</p>
+                    <p className="text-muted-foreground">{contactInfo.email}</p>
                   </div>
                 </div>
 
@@ -104,8 +110,8 @@ const Contact = () => {
                     <Phone className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold">Teléfono</p>
-                    <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                    <p className="font-semibold">WhatsApp</p>
+                    <p className="text-muted-foreground">{contactInfo.phone}</p>
                   </div>
                 </div>
 
