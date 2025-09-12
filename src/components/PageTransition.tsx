@@ -191,10 +191,10 @@ const PageTransition = ({ children }: PageTransitionProps) => {
 
       {/* Page content */}
       <div 
-        className={`transition-all duration-500 ease-out ${
+        className={`transition-opacity duration-500 ease-out ${
           isTransitioning 
-            ? 'opacity-0 transform scale-95' 
-            : 'opacity-100 transform scale-100'
+            ? 'opacity-0' 
+            : 'opacity-100'
         }`}
       >
         {displayChildren}
