@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
+import { openWhatsAppQuote } from "@/utils/whatsapp";
 
 const ProductsPage = () => {
   const products = [
@@ -160,11 +161,13 @@ const ProductsPage = () => {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
               Soluciones de software listas para implementar en su empresa. Productos probados y optimizados para diferentes industrias.
             </p>
-            <Link to="/contacto">
-              <Button size="lg" className="shadow-lg hover:shadow-xl transition-all duration-300">
-                Solicitar Demostración
-              </Button>
-            </Link>
+            <Button 
+              size="lg" 
+              className="shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => openWhatsAppQuote("demostración de productos de software")}
+            >
+              Solicitar Demostración
+            </Button>
           </div>
         </div>
       </section>
@@ -215,11 +218,14 @@ const ProductsPage = () => {
                   </div>
                   
                   <div className="flex gap-2 pt-4">
-                    <Link to="/contacto" className="flex-1">
-                      <Button variant="default" size="sm" className="w-full">
-                        Solicitar Info
-                      </Button>
-                    </Link>
+                    <Button 
+                      variant="default" 
+                      size="sm" 
+                      className="flex-1"
+                      onClick={() => openWhatsAppQuote(`información sobre ${product.title}`)}
+                    >
+                      Solicitar Info
+                    </Button>
                     <Button variant="outline" size="sm">
                       <ExternalLink className="h-4 w-4" />
                     </Button>
@@ -246,11 +252,13 @@ const ProductsPage = () => {
                 Desarrollo a la Medida
               </Button>
             </Link>
-            <Link to="/contacto">
-              <Button variant="outline" size="lg">
-                Contactar Asesor
-              </Button>
-            </Link>
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={() => openWhatsAppQuote("asesoría sobre productos y servicios")}
+            >
+              Contactar Asesor
+            </Button>
           </div>
         </div>
       </section>

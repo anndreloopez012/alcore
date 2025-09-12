@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen, Settings, Package, ChevronDown, MessageCircle, CreditCard } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { openWhatsAppQuote } from "@/utils/whatsapp";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -218,10 +219,13 @@ const Navigation = () => {
                     </div>
                   ))}
                   
-                  <Button variant="hero" size="sm" className="ml-4 px-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                    <Link to="/contacto">
-                      Comenzar Proyecto
-                    </Link>
+                  <Button 
+                    variant="hero" 
+                    size="sm" 
+                    className="ml-4 px-6 shadow-lg hover:shadow-xl transition-all duration-300"
+                    onClick={() => openWhatsAppQuote("comenzar nuevo proyecto")}
+                  >
+                    Comenzar Proyecto
                   </Button>
                 </div>
 
@@ -293,11 +297,16 @@ const Navigation = () => {
               ))}
               
               <div className="pt-4 border-t border-border">
-                <Link to="/contacto" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="hero" className="w-full shadow-lg hover:shadow-xl transition-all duration-300">
-                    Comenzar Proyecto
-                  </Button>
-                </Link>
+                <Button 
+                  variant="hero" 
+                  className="w-full shadow-lg hover:shadow-xl transition-all duration-300"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    openWhatsAppQuote("comenzar nuevo proyecto");
+                  }}
+                >
+                  Comenzar Proyecto
+                </Button>
               </div>
             </div>
           </div>

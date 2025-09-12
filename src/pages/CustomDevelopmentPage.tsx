@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
+import { openWhatsAppQuote } from "@/utils/whatsapp";
 
 const CustomDevelopmentPage = () => {
   const processSteps = [
@@ -104,12 +105,14 @@ const CustomDevelopmentPage = () => {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
               Transformamos las necesidades específicas de su empresa en soluciones de software innovadoras y eficientes
             </p>
-            <Link to="/contacto">
-              <Button size="lg" className="shadow-lg hover:shadow-xl transition-all duration-300">
-                Comenzar mi Proyecto
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button 
+              size="lg" 
+              className="shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => openWhatsAppQuote("desarrollo a la medida")}
+            >
+              Comenzar mi Proyecto
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
@@ -198,11 +201,13 @@ const CustomDevelopmentPage = () => {
             Hablemos sobre cómo podemos crear la solución perfecta para sus necesidades específicas
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contacto">
-              <Button size="lg" className="shadow-lg hover:shadow-xl transition-all duration-300">
-                Solicitar Consulta Gratuita
-              </Button>
-            </Link>
+            <Button 
+              size="lg" 
+              className="shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => openWhatsAppQuote("consulta gratuita para desarrollo a la medida")}
+            >
+              Solicitar Consulta Gratuita
+            </Button>
             <Link to="/productos">
               <Button variant="outline" size="lg">
                 Ver Productos Disponibles
