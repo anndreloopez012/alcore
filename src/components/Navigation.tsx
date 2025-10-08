@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen, Settings, Package, ChevronDown, MessageCircle, CreditCard } from "lucide-react";
+import { Menu, X, Code, Cloud, Users, Mail, Home, FolderOpen, Settings, Package, ChevronDown, MessageCircle, CreditCard, Workflow } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { openWhatsAppQuote } from "@/utils/whatsapp";
 
@@ -31,6 +31,7 @@ const Navigation = () => {
         { name: "Desarrollo a Medida", href: "/desarrollo-medida", icon: Settings, description: "Soluciones personalizadas" },
         { name: "Productos de Software", href: "/productos", icon: Package, description: "Software listo para usar" },
         { name: "Servidores en la Nube", href: "/servidores-cloud", icon: Cloud, description: "Infraestructura escalable" },
+        { name: "Automatizaciones con n8n", href: "/automatizaciones", icon: Workflow, description: "Automatiza tus procesos" },
       ]
     },
     { name: "Tecnologías", href: "/#tecnologias", icon: Cloud, section: "tecnologias" },
