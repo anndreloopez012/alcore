@@ -16,7 +16,7 @@ export const useGeminiChat = () => {
   const { toast } = useToast();
 
   const sendMessage = async (userMessage: string) => {
-    if (!GEMINI_API_KEY || GEMINI_API_KEY === 'TU_API_KEY_AQUI') {
+    if (!GEMINI_API_KEY || GEMINI_API_KEY.includes('TU_API_KEY')) {
       toast({
         title: "API Key no configurada",
         description: "Por favor configura la API key en src/config/gemini-api-key.ts",

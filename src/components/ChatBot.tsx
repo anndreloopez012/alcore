@@ -142,7 +142,14 @@ const ChatBot = () => {
               <Button
                 variant="link"
                 size="sm"
-                onClick={() => openWhatsAppQuote("solicitud desde chatbot")}
+                onClick={() => {
+                  // Generar contexto de la conversación
+                  const recentMessages = messages.slice(-4); // Últimos 4 mensajes
+                  const context = recentMessages
+                    .map(m => `${m.role === 'user' ? 'Cliente' : 'Bot'}: ${m.content}`)
+                    .join(' | ');
+                  openWhatsAppQuote(`Conversación chatbot: ${context}`);
+                }}
                 className="text-xs"
               >
                 ¿Prefieres hablar por WhatsApp? Click aquí
