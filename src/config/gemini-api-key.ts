@@ -15,7 +15,7 @@
 //
 // ============================================
 
-export const GEMINI_API_KEY = 'TU_API_KEY_AQUI';
+export const GEMINI_API_KEY = "AIzaSyCqoLsniISMXrRJUE3QSZCjzQERM9NRma4";
 
 // ============================================
 // NO MODIFIQUES NADA DEBAJO DE ESTA LÍNEA
