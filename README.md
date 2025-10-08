@@ -1,73 +1,50 @@
-# Welcome to your Lovable project
+🚀 Bienvenido al ALCORE
+📋 Información general
+Este proyecto está construido con las siguientes tecnologías modernas:
+⚡ Vite — Entorno de desarrollo rápido y moderno
+⚛️ React — Librería para interfaces dinámicas
+🧩 TypeScript — Tipado estático para JavaScript
+🎨 Tailwind CSS — Framework de estilos utilitarios
+🪄 shadcn/ui — Componentes estilizados y personalizables
+🧠 Cómo editar el código
+💻 1. Trabajando en tu entorno local
+Si prefieres usar tu propio entorno de desarrollo, sigue estos pasos:
+# 1️⃣ Clona el repositorio
+git clone <URL_DEL_REPOSITORIO>
 
-## Project info
+# 2️⃣ Entra al directorio del proyecto
+cd <NOMBRE_DEL_PROYECTO>
 
-**URL**: https://lovable.dev/projects/e14206df-dc0f-4d95-913a-1219de300e02
+# 3️⃣ Instala las dependencias necesarias
+npm install
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/e14206df-dc0f-4d95-913a-1219de300e02) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4️⃣ Inicia el servidor de desarrollo (con recarga automática)
 npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/e14206df-dc0f-4d95-913a-1219de300e02) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Asegúrate de tener instalado Node.js y npm.
+Si no los tienes, puedes instalarlos fácilmente usando nvm:
+👉 Guía de instalación de nvm
+🧾 2. Editando directamente en GitHub
+Abre el archivo que quieras modificar.
+Haz clic en el ícono del ✏️ lápiz (Editar).
+Realiza tus cambios.
+Guarda y confirma el commit.
+🧠 3. Usando GitHub Codespaces (opcional)
+Ve a la página principal del repositorio.
+Haz clic en el botón verde Code.
+Selecciona la pestaña Codespaces.
+Crea un nuevo entorno Codespace.
+Edita, guarda y haz commit/push de tus cambios.
+🚀 Despliegue del proyecto
+Puedes desplegar el proyecto fácilmente en plataformas como:
+🌐 Vercel
+🔥 Netlify
+🧭 Render
+🐳 Tu propio servidor con Docker o Apache/Nginx
+Comando de compilación:
+npm run build
+Esto generará la carpeta dist/, la cual puedes subir o servir directamente desde tu hosting.
+🌍 Conectar un dominio personalizado
+Si deseas usar un dominio propio:
+Configura el dominio en el panel de tu proveedor (ejemplo: Namecheap, Cloudflare, GoDaddy).
+Apunta el registro A o CNAME al dominio o subdominio donde se aloje tu aplicación.
+(Opcional) Configura HTTPS con un certificado SSL (puedes usar Let's Encrypt).
