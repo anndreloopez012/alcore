@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Technologies from "@/components/Technologies";
 import Footer from "@/components/Footer";
+import ChatBot from "@/components/ChatBot";
 
 
 const Index = () => {
@@ -17,7 +18,7 @@ const Index = () => {
         </div>
         <Footer />
       </main>
-      
+      <ChatBot />
     </>
   );
 };
