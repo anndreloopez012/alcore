@@ -1,4 +1,4 @@
-import { Code, Package, Cloud, Zap, Shield, Rocket } from "lucide-react";
+import { Code, Package, Cloud, Zap, Shield, Rocket, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -27,6 +27,14 @@ const Services = () => {
       features: ["AWS, Azure, Huawei", "Escalabilidad automática", "Backup y recuperación", "Monitoreo 24/7"],
       gradient: "from-primary-light to-accent",
       link: "/servidores-cloud"
+    },
+    {
+      icon: Workflow,
+      title: "Automatizaciones con n8n",
+      description: "Automatiza procesos empresariales conectando todas tus herramientas y ahorra tiempo en tareas repetitivas.",
+      features: ["Integración de apps", "Workflows personalizados", "Automatización con IA", "Soporte especializado"],
+      gradient: "from-accent to-primary-light",
+      link: "/automatizaciones"
     }
   ];
 
@@ -44,7 +52,7 @@ const Services = () => {
         </div>
 
         {/* Services grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
           {services.map((service, index) => (
             <div 
               key={index} 
