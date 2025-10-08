@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { CHATBOT_SYSTEM_PROMPT, CHATBOT_CONFIG } from '@/config/chatbot-config';
+import { GEMINI_API_KEY } from '@/config/gemini-api-key';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
-export const useGeminiChat = (apiKey: string) => {
+export const useGeminiChat = () => {
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: CHATBOT_CONFIG.welcomeMessage }
   ]);
@@ -15,10 +16,10 @@ export const useGeminiChat = (apiKey: string) => {
   const { toast } = useToast();
 
   const sendMessage = async (userMessage: string) => {
-    if (!apiKey) {
+    if (!GEMINI_API_KEY || GEMINI_API_KEY === 'TU_API_KEY_AQUI') {
       toast({
-        title: "API Key requerida",
-        description: "Por favor configura tu API key de Gemini",
+        title: "API Key no configurada",
+        description: "Por favor configura la API key en src/config/gemini-api-key.ts",
         variant: "destructive",
       });
       return;
@@ -36,7 +37,7 @@ export const useGeminiChat = (apiKey: string) => {
 
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${CHATBOT_CONFIG.geminiModel}:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${CHATBOT_CONFIG.geminiModel}:generateContent?key=${GEMINI_API_KEY}`,
         {
           method: 'POST',
           headers: {

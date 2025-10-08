@@ -1,25 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Settings, Trash2, ExternalLink } from 'lucide-react';
+import { MessageCircle, X, Send, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useGeminiChat } from '@/hooks/useGeminiChat';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
 import { openWhatsAppQuote } from '@/utils/whatsapp';
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [apiKey, setApiKey] = useState(() => {
-    // Cargar API key guardada del localStorage
-    return localStorage.getItem('gemini_api_key') || '';
-  });
-  const [tempApiKey, setTempApiKey] = useState(apiKey);
-  const [showSettings, setShowSettings] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { messages, isLoading, sendMessage, clearChat } = useGeminiChat(apiKey);
+  const { messages, isLoading, sendMessage, clearChat } = useGeminiChat();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -33,12 +25,6 @@ const ChatBot = () => {
 
     await sendMessage(inputValue);
     setInputValue('');
-  };
-
-  const handleSaveApiKey = () => {
-    localStorage.setItem('gemini_api_key', tempApiKey);
-    setApiKey(tempApiKey);
-    setShowSettings(false);
   };
 
   const handleClearChat = () => {
@@ -77,52 +63,12 @@ const ChatBot = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Dialog open={showSettings} onOpenChange={setShowSettings}>
-                <DialogTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <Settings className="h-4 w-4" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Configuración del Chatbot</DialogTitle>
-                  </DialogHeader>
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="apiKey">API Key de Gemini</Label>
-                      <Input
-                        id="apiKey"
-                        type="password"
-                        value={tempApiKey}
-                        onChange={(e) => setTempApiKey(e.target.value)}
-                        placeholder="Ingresa tu API key"
-                        className="mt-2"
-                      />
-                      <p className="text-xs text-muted-foreground mt-2">
-                        Obtén tu API key gratuita en{' '}
-                        <a 
-                          href="https://aistudio.google.com/app/apikey" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline inline-flex items-center gap-1"
-                        >
-                          Google AI Studio
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
-                      </p>
-                    </div>
-                    <Button onClick={handleSaveApiKey} className="w-full">
-                      Guardar
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-              
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={handleClearChat}
                 className="h-8 w-8"
+                title="Limpiar conversación"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -173,27 +119,19 @@ const ChatBot = () => {
 
           {/* Input */}
           <div className="p-4 border-t border-border">
-            {!apiKey && (
-              <div className="mb-3 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-                <p className="text-xs text-yellow-600 dark:text-yellow-400">
-                  ⚠️ Configura tu API key en el icono de configuración para usar el chatbot
-                </p>
-              </div>
-            )}
-            
             <form onSubmit={handleSendMessage} className="flex gap-2">
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Escribe tu pregunta..."
-                disabled={isLoading || !apiKey}
+                disabled={isLoading}
                 className="flex-1"
                 maxLength={500}
               />
               <Button 
                 type="submit" 
                 size="icon"
-                disabled={isLoading || !apiKey || !inputValue.trim()}
+                disabled={isLoading || !inputValue.trim()}
                 className="shrink-0"
               >
                 <Send className="h-4 w-4" />
