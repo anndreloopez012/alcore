@@ -53,7 +53,7 @@ const ChatBot = () => {
           <div className="flex items-center justify-between p-4 border-b border-border bg-gradient-to-r from-primary/10 to-accent/10 rounded-t-2xl">
             <div className="flex items-center gap-3">
               <img 
-                src="/lovable-uploads/7939aa51-6ace-4a2e-b865-7f1ca2d69f21.png" 
+                src="/assets/alcore-logo.png" 
                 alt="ALCORE" 
                 className="h-8"
               />

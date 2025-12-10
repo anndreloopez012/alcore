@@ -19,7 +19,7 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
                 <img 
-                  src="/lovable-uploads/77d0db25-69ef-49e6-b294-6ef7fa9d418f.png" 
+                  src="/assets/alcore-isotipo.png" 
                   alt="ALCORE Technologies Solutions" 
                   className="h-8"
                 />

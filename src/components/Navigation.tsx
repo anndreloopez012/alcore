@@ -90,7 +90,7 @@ const Navigation = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group z-50">
               <img 
-                src="/lovable-uploads/7939aa51-6ace-4a2e-b865-7f1ca2d69f21.png" 
+                src="/assets/alcore-logo.png" 
                 alt="ALCORE Technologies Solutions" 
                 className="h-8 group-hover:scale-110 transition-transform duration-300"
               />
