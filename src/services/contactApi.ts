@@ -22,7 +22,7 @@ export const getContactInfo = async (): Promise<ContactInfo> => {
     phone: "+50255794266",
     email: "contacto@alcore-gt.com",
     website: "https://alcore-gt.com/",
-    whatsapp: "+50255794266",
+    whatsapp: "+50255784266",
     telegram: "@alcore_digital",
     avatar: "/src/assets/alcore-isotipo.png",
   };
