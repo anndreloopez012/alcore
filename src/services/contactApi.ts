@@ -13,17 +13,17 @@ export interface ContactInfo {
 
 export const getContactInfo = async (): Promise<ContactInfo> => {
   // Simular delay de API
-  await new Promise(resolve => setTimeout(resolve, 500));
-  
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   return {
-      name: "ALCORE Technologies Solution",
+    name: "ALCORE Technologies Solution",
     position: "Soluciones Tecnológicas Completas",
     company: "ALCORE",
-    phone: "+1234567890",
-    email: "contacto@alcore.dev",
-    website: "https://alcore.dev",
-    whatsapp: "+1234567890",
+    phone: "+50255794266",
+    email: "contacto@alcore-gt.com",
+    website: "https://alcore-gt.com/",
+    whatsapp: "+50255794266",
     telegram: "@alcore_digital",
-    avatar: "/src/assets/alcore-isotipo.png"
+    avatar: "/src/assets/alcore-isotipo.png",
   };
 };
